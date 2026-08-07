@@ -250,6 +250,12 @@ will read the result as confirming whichever hypothesis you preferred.
 If the hypothesis dies, return to the DIVERGENCE STOP with the remaining ranking.
 Do NOT re-run `hypothesise` with the dead hypothesis in context.
 
+**Borrow-fallback:** if no member declares `falsify`, do NOT skip it under the
+empty-phase rule - report it as `unstaffed`, then ask the human which agent to
+borrow, or run the pre-registered command yourself and report the raw output with
+no interpretation. Losing this phase silently costs the protocol its only
+evidence, which is why it is the one phase you may execute directly.
+
 **specify** - Turn the decision into checkable criteria, authored blind to any
 implementation. Present OPEN QUESTIONS to the human before anything is built.
 
