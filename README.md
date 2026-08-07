@@ -125,6 +125,9 @@ the data. That is the realistic failure mode — not that it does not work.
   identical ambient layer, so members are independent in conversational context
   and identical in ambient context. Running the `attack` phase on a different
   model family is the only lever touching either, and it is partial.
+- **Member self-report is not verification.** Convergent membrane reports from
+  members sharing an ambient layer and identical reporting instructions are one
+  measurement taken N times. Verify by token accounting.
 - **No efficacy data exists.** The ledger is how that changes. Until it has
   thirty entries with a control arm, this is a hypothesis with good ergonomics.
 

@@ -35,7 +35,8 @@ MEMBER-TEMPLATE.md. Domain is a free string; the shipped members declare `code` 
 Isolation gives members independent *conversational* context. It does not give
 them independent *priors* (shared weights) or independent *ambient* context
 (identical harness layer, ~28,500 tokens in this project's first run). Member
-agreement is therefore weaker evidence than member divergence.
+agreement is therefore weaker evidence than member divergence, and self-reported
+membrane compliance is not evidence at all - verify by token accounting.
 
 ## Honest limits
 

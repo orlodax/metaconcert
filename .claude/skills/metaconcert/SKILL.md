@@ -89,6 +89,17 @@ Both mean member agreement is worth less than it looks. Running the `attack`
 phase on a different model family is the only lever that touches either, and it
 is partial.
 
+### Self-report is not verification
+
+A member stating that it did not receive something is exactly the fluent,
+plausible, unfalsifiable claim this protocol exists to distrust. Convergent
+self-reports from members that share an ambient layer and carry identical
+reporting instructions are ONE measurement taken N times, not N measurements.
+
+Where verification matters, verify mechanically: compare the member's reported
+input-token count against the size of the prompt you constructed, and record both
+in the ledger. Never log a membrane claim as confirmed on a member's say-so.
+
 Artifacts flow between phases by name (`symptom-brief`, `system-map`, ...).
 A member's `produces` name is how downstream members refer to it. Never rename,
 never summarise, never merge artifacts.
