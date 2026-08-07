@@ -79,12 +79,17 @@ not working for reasons you cannot name. Everything else, use your normal agents
 
 ## The rule that makes this cheap
 
-A subagent's context starts fresh, and the only channel from parent to subagent
-is the prompt string. Therefore **the membrane is enforced by the director's
-prompt construction, not by the member's own definition.**
+A subagent's context starts fresh. The prompt string is the only channel for
+*parent-supplied* material - alongside it sits an ambient layer (harness
+instructions, tool definitions, environment and project files) that is not
+parent-supplied and is not suppressible; see `SKILL.md` for the measured size
+of that layer and its caveat. For the material the director controls,
+**the membrane is enforced by the director's prompt construction, not by the
+member's own definition.**
 
 Consequence: existing agents can serve as Metaconcert members with ZERO
-modification. You are not changing them; you are changing what reaches them.
+modification. You are not changing them; you are changing what parent-supplied
+material reaches them.
 
 ## Direction of control
 
