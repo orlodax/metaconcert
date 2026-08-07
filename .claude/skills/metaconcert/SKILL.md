@@ -128,8 +128,8 @@ produces phantom "missing producer" defects.
 | Kind | Origin | Examples |
 |---|---|---|
 | `member` | produced by a member's `produces` | symptom-brief, system-map, hypothesis-ranking, forecast, observation, acceptance-criteria, diff, findings |
-| `director` | assembled by you from a prior phase | spec |
-| `human` | decided by the human at a STOP | decision |
+| `director` | assembled by you from a prior phase | spec, pre-registered-test, expected-outcomes |
+| `human` | decided by the human at a STOP | decision, chosen-hypothesis |
 | `environment` | read from the repo, not produced | conventions, task-signature, repo-history |
 | `negative` | a CLASS of material, never an artifact; appears only on `never` lists and means "material of this kind from any source" | deliberation, rationale, rejected-hypotheses, build-report, quarantine |
 
