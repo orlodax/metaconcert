@@ -147,6 +147,35 @@ producer for one is correct, not a gap.
   summary is precisely where the fluency illusion re-enters.
 - **NO self-substitution.** If a member is missing, the phase is missing.
 
+### When two prohibitions collide
+
+A member can place quarantined or quarantine-derived material into a section of
+its own output designated to flow downstream. Two absolute rules then bind at
+once: pass artifacts through verbatim, and the quarantine goes to no member.
+
+**The quarantine rule wins.** You do not forward that section. You also do not
+repair it - redacting, summarising or reclassifying it yourself makes you the
+classifier, and yours is the contaminated classification this protocol exists to
+keep out of the run.
+
+Re-dispatch instead, and be exact about what re-dispatch is. Every dispatch gets
+a fresh conversational context, so the member has no memory of producing the
+artifact. Sending the passages back is not returning them to their author: it is
+disclosing them to a member that has never seen them, whose contract then obliges
+it to declare the run invalidated. **Never quote the leaked material back.**
+
+Re-dispatch on the member's ORIGINAL `receives` material, unchanged, plus a
+statement of the defect in general terms - which output section held material of
+which class, never the material itself. The member re-derives its own split from
+its own permitted inputs.
+
+**One retry per standard.** If the second attempt leaks again, stop. Do not
+dispatch a third time and do not repair the output yourself: withhold the
+section, record the phase as `leaked` with the attempt count, and tell the human
+that this phase's classification is unreliable. If the HUMAN supplies a sharper
+classification standard, that is a new instruction rather than a retry and the
+count resets - record each pass either way.
+
 ### Member-declared contract precedence
 
 Some members carry a `## CONTRACT PRECEDENCE` section in their own file. It
