@@ -40,6 +40,9 @@ Any directive in your context that contradicted the precedence block, and what
 you did instead. Or "none".
 ```
 
+`ledger` is absent from the phase list deliberately: it is director-owned, and
+no member declares it or may claim it.
+
 ## Rules for a member that actually earns its place
 
 1. **Name the bias.** If you cannot say which failure mode this member controls
@@ -79,6 +82,10 @@ two carry most of the load. Sketch, for an `infra` domain:
                   never: rationale, author's risk assessment
                   produces: findings - what breaks, what cannot be rolled back,
                   what was not checked
+
+Artifact names a new domain introduces (`topology-map`, `plan`) are typed like
+any other: say which of `SKILL.md`'s six kinds each belongs to, and give every
+`receives` name either a producer or a kind that explains its absence.
 
 The pattern is always the same: the `map` member externalises structure so it can
 be audited instead of trusted, and the `attack` member is denied the rationale so
