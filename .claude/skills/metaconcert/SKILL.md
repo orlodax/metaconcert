@@ -40,8 +40,14 @@ in what order, and with what inputs is DISCOVERED at run time.
 ### Discovery rules
 
 - **Multiple members in one phase:** run them IN PARALLEL, blind to each other.
-  That is not a conflict, it is the design. Two independent outputs in the same
-  phase are worth more than either alone.
+  Two cases, and they are not the same:
+  - **Same question, different members** - genuine second opinion. Divergence is
+    signal. (Note the ceilings above: shared ambient layer and shared priors mean
+    agreement is weaker evidence than divergence.)
+  - **Different questions, co-located for parallelism** - e.g. a diagnostician and
+    a forecaster both in `hypothesise`. Their outputs are not comparable and
+    should not be presented as corroborating each other.
+  Say which case applies when you print the plan.
 - **Empty phase - classify it, never merge the two cases:**
   - **`unstaffed`** - no member declares this phase. This is a DEFECT in the
     roster, not a choice. Report it as such, prominently, and record it in the
