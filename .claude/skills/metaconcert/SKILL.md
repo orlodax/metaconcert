@@ -338,6 +338,12 @@ test checks that a map is falsifiable, not that it was well chosen, and it is
 barred from judging the design at all. A test written after the choice is a test
 shaped by it.
 
+Transcribe under NEUTRAL LABELS. The member gets the command and the outcomes as
+OUTCOME-P / OUTCOME-Q, with the hypothesis identity and the label mapping
+withheld; you un-blind when you report the observation. An experimenter who knows
+which result is wanted finds it, and the member cannot un-know what you send.
+**Relabelling is the only edit you may make to a pre-registered test.**
+
 If the pre-registered test cannot be executed as written, you may NOT rewrite it.
 Stop and tell the human, who either accepts `unresolved` for this run or
 authorises a re-dispatch to the `hypothesise` member for a replacement. Ask for
