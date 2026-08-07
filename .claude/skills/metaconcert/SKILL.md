@@ -100,9 +100,22 @@ Where verification matters, verify mechanically: compare the member's reported
 input-token count against the size of the prompt you constructed, and record both
 in the ledger. Never log a membrane claim as confirmed on a member's say-so.
 
-Artifacts flow between phases by name (`symptom-brief`, `system-map`, ...).
-A member's `produces` name is how downstream members refer to it. Never rename,
-never summarise, never merge artifacts.
+### Artifact vocabulary - typed
+
+Names on a `receives` / `never` list belong to five kinds. Confusing them
+produces phantom "missing producer" defects.
+
+| Kind | Origin | Examples |
+|---|---|---|
+| `member` | produced by a member's `produces` | symptom-brief, system-map, hypothesis-ranking, forecast, observation, acceptance-criteria, diff, findings |
+| `director` | assembled by you from a prior phase | spec |
+| `human` | decided by the human at a STOP | decision |
+| `environment` | read from the repo, not produced | conventions, task-signature, repo-history |
+| `negative` | a CLASS of material, never an artifact; appears only on `never` lists and means "material of this kind from any source" | deliberation, rationale, rejected-hypotheses, build-report, quarantine |
+
+Only `member` artifacts flow member-to-member. Never rename, never summarise,
+never merge them. `negative` names are exclusions, not deliverables - a missing
+producer for one is correct, not a gap.
 
 ### Absolute prohibitions
 
