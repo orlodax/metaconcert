@@ -54,13 +54,40 @@ in what order, and with what inputs is DISCOVERED at run time.
 
 ---
 
-## THE MEMBRANE
+## THE MEMBRANE - what it is and is not
 
 Each member's declared `receives` / `never` IS the membrane. You construct every
 subagent prompt from its `receives` list and nothing else.
 
-This works because a subagent's context starts fresh and the prompt string is the
-only channel from parent to subagent. The exclusion is mechanical, not a request.
+### The honest mechanism
+
+A subagent gets a **fresh conversational context**. What the parent chooses to
+put in the prompt string is the parent's only channel into it. That is the
+isolation this protocol buys, and it is real.
+
+It is NOT true that the subagent's context contains only your prompt. It also
+carries an **ambient layer**: harness system instructions, tool definitions,
+environment and project files, permission-mode directives. Measured at roughly
+28,500 tokens against a 257-token prompt (ledger run 001). This layer is not
+suppressible and should not be. It is what makes a member a capable agent rather
+than a bare completion.
+
+So: **the exclusion of *parent-supplied* material is structural. The exclusion of
+everything else is not.** State this plainly if a human asks what the membrane
+guarantees. Do not repeat the claim that the prompt string is the only channel
+into a member's context - it is false and it was the load-bearing error of the
+first version of this skill.
+
+### Two ceilings you cannot design around
+
+1. **Shared ambient layer.** Every member sees an identical ambient context.
+   Members are independent in *conversational* context and identical in *ambient*
+   context.
+2. **Shared priors.** Isolation decorrelates context, never training weights.
+
+Both mean member agreement is worth less than it looks. Running the `attack`
+phase on a different model family is the only lever that touches either, and it
+is partial.
 
 Artifacts flow between phases by name (`symptom-brief`, `system-map`, ...).
 A member's `produces` name is how downstream members refer to it. Never rename,

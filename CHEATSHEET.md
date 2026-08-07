@@ -30,6 +30,13 @@ Members are discovered at run time from `.claude/agents/mc-*.md`. Drop in a new
 one and it is adopted on the next run - the skill is never edited. See
 MEMBER-TEMPLATE.md. Domain is a free string; the shipped members declare `code` and `any`.
 
+## Two ceilings
+
+Isolation gives members independent *conversational* context. It does not give
+them independent *priors* (shared weights) or independent *ambient* context
+(identical harness layer, ~28,500 tokens in this project's first run). Member
+agreement is therefore weaker evidence than member divergence.
+
 ## Honest limits
 
 - The member/bias mapping is **design intent, not measurement**. Biases do not

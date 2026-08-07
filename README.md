@@ -38,9 +38,21 @@ Metaconcert restores friction by construction rather than by discipline.
 
 ## The mechanism it rests on
 
-A subagent's context starts fresh, and the only channel from parent to subagent is
-the prompt string. That makes every handoff **a membrane whose permeability you
-specify**. Every rule here is a statement about what is not allowed to cross.
+A subagent gets a **fresh conversational context**, and what the parent puts in
+the prompt string is the parent's only channel into it. That makes every handoff
+**a membrane whose permeability you specify** for parent-supplied material.
+
+It does not make the member's context empty. Alongside your prompt sits an
+**ambient layer** — harness instructions, tool definitions, environment and
+project files — measured at roughly 28,500 tokens against a 257-token prompt in
+this project's own first run. That layer is not suppressible and should not be:
+it is what makes a member a capable agent rather than a bare completion.
+
+So the guarantee is narrower than it first looks, and worth stating exactly:
+**exclusion of parent-supplied material is structural; exclusion of everything
+else is not.** An earlier version of this README claimed the prompt string was
+the only channel into a member's context. That was false, and the project's own
+protocol is what caught it — see `ledger.md`, run 001.
 
 ## The shape
 
@@ -108,9 +120,11 @@ the data. That is the realistic failure mode — not that it does not work.
 
 - The member/bias mapping is **design intent, not measurement**. Biases do not
   partition cleanly.
-- Members share a training lineage. Isolation decorrelates their *context*, not
-  their *priors*. Running the adversary on a different model family buys partial
-  decorrelation — partial, never full.
+- **Two ceilings on independence.** Members share a training lineage, so
+  isolation decorrelates *context*, not *priors*. And every member sees an
+  identical ambient layer, so members are independent in conversational context
+  and identical in ambient context. Running the `attack` phase on a different
+  model family is the only lever touching either, and it is partial.
 - **No efficacy data exists.** The ledger is how that changes. Until it has
   thirty entries with a control arm, this is a hypothesis with good ergonomics.
 
