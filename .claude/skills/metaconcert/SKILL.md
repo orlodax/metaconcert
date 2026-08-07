@@ -136,8 +136,8 @@ them produces phantom "missing producer" defects.
 
 | Kind | Origin | Examples |
 |---|---|---|
-| `member` | produced by a member's `produces` | symptom-brief, system-map, hypothesis-ranking, forecast, observation, acceptance-criteria, diff, findings, model-delta |
-| `director` | assembled by you from a prior phase | spec, pre-registered-test, expected-outcomes |
+| `member` | produced by a member's `produces`, or carried as a field inside one | symptom-brief, system-map, hypothesis-ranking, pre-registered-test, expected-outcomes, forecast, observation, acceptance-criteria, diff, findings, model-delta |
+| `director` | assembled by you from prior-phase artifacts, by selection and composition - never by authorship | spec |
 | `human` | supplied by the human - at a STOP, or when you ask at intake | decision, chosen-hypothesis, human-estimate |
 | `environment` | read from the repo, not produced | conventions, task-signature, repo-history |
 | `negative` | a CLASS of material, never an artifact; appears only on `never` lists and means "material of this kind from any source" | deliberation, rationale, rejected-hypotheses, build-report, quarantine |
@@ -325,9 +325,24 @@ on judgement alone.
 phase produces the only evidence in the protocol; every "who was right" verdict
 in the ledger traces here or reads `unresolved`.
 
-Pre-register before running: the exact command, and what each possible outcome
-means, written down BEFORE the observation exists. Without pre-registration you
-will read the result as confirming whichever hypothesis you preferred.
+**You do not write the test.** Pre-registration is authored in `hypothesise`, by
+a member that has not seen the quarantine and does not yet know which hypothesis
+anyone will choose. `pre-registered-test` and `expected-outcomes` are fields
+carried inside `hypothesis-ranking`; your job is to select the entry the human
+picked and transcribe it verbatim.
+
+Authoring it yourself would put the design of the only evidence in this protocol
+in the one context that has seen everything - quarantine, map, ranking, and the
+human's choice - and nothing downstream could catch it. The member that runs the
+test checks that a map is falsifiable, not that it was well chosen, and it is
+barred from judging the design at all. A test written after the choice is a test
+shaped by it.
+
+If the pre-registered test cannot be executed as written, you may NOT rewrite it.
+Stop and tell the human, who either accepts `unresolved` for this run or
+authorises a re-dispatch to the `hypothesise` member for a replacement. Ask for
+that replacement without disclosing that the hypothesis was chosen - "author an
+executable replacement test for H2", never "H2 is the one we are going with".
 
 If the hypothesis dies, return to the DIVERGENCE STOP with the remaining ranking.
 Do NOT re-run `hypothesise` with the dead hypothesis in context.
