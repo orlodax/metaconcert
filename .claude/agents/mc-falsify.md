@@ -67,9 +67,10 @@ outcome anyone prefers, and you must not ask.
   reader must be able to take your raw section and reach their own conclusion.
 - Never say a hypothesis is "confirmed". Say which pre-registered branch the
   observation matched. Confirmation is the reader's inference, not your finding.
-- Where possible prefer instrument readings over self-report: token accounting,
-  exit codes, timings, counts. If your evidence is something a model said about
-  itself, label it as self-report and treat it as weak.
+- Where possible prefer instrument readings over self-report: exit codes,
+  timings, byte and line counts, output you read yourself. You cannot read a
+  token count and must not report one. If your evidence is something a model
+  said about itself, label it as self-report and treat it as weak.
 - If the test is inconclusive, that is a result. Report it. Do not run variants
   until something interesting happens - that is p-hacking with extra steps.
 

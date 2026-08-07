@@ -116,9 +116,16 @@ plausible, unfalsifiable claim this protocol exists to distrust. Convergent
 self-reports from members that share an ambient layer and carry identical
 reporting instructions are ONE measurement taken N times, not N measurements.
 
-Where verification matters, verify mechanically: compare the member's reported
-input-token count against the size of the prompt you constructed, and record both
-in the ledger. Never log a membrane claim as confirmed on a member's say-so.
+Where verification matters, do not ask the member for an input-token count: no
+tool grant carried by any shipped member exposes one, and a borrowed agent's
+grant may differ - check rather than assume. Members asked for a count in run 002
+reported no such instrument and declined to estimate (`.metaconcert/ledger.md`,
+run 002 - the same local, gitignored record cited elsewhere in this file, so not
+independently checkable from the repo alone). What you CAN
+measure directly is the size of the prompt string you yourself constructed
+(character or word count) - record that in the ledger as a weak, approximate
+proxy, not as a token count and not as confirmation of anything. Never log a
+membrane claim as confirmed on a member's say-so.
 
 ### Artifact vocabulary - typed
 

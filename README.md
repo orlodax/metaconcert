@@ -127,7 +127,9 @@ the data. That is the realistic failure mode — not that it does not work.
   model family is the only lever touching either, and it is partial.
 - **Member self-report is not verification.** Convergent membrane reports from
   members sharing an ambient layer and identical reporting instructions are one
-  measurement taken N times. Verify by token accounting.
+  measurement taken N times. No member can read its own token count either, so
+  the only mechanical check is the size of the prompt the director built — a
+  weak proxy, not a measurement of what arrived.
 - **No efficacy data exists.** The ledger is how that changes. Until it has
   thirty entries with a control arm, this is a hypothesis with good ergonomics.
 

@@ -40,7 +40,9 @@ Isolation gives members independent *conversational* context. It does not give
 them independent *priors* (shared weights) or independent *ambient* context
 (identical harness layer, ~28,500 tokens in this project's first run). Member
 agreement is therefore weaker evidence than member divergence, and self-reported
-membrane compliance is not evidence at all - verify by token accounting.
+membrane compliance is not evidence at all. No member can read its own token
+count, so the only mechanical check is the size of the prompt the director
+constructed - a weak proxy, not a measurement of what arrived.
 
 ## Honest limits
 
