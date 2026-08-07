@@ -10,7 +10,7 @@ model: sonnet
     phase:     intake
     domain:    any
     receives:  raw-report, referenced-files
-    never:     (nothing withheld - this is the entry point)
+    never:     quarantine (this member is the producer; it holds the split but passes it to no one)
     produces:  symptom-brief, quarantine
     model:     sonnet
 

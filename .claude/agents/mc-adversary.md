@@ -10,7 +10,7 @@ model: opus
     phase:     attack
     domain:    code
     receives:  diff, spec, acceptance-criteria
-    never:     deliberation, build-report, rationale
+    never:     quarantine, deliberation, build-report, rationale
     produces:  findings
     model:     opus (different family if available)
 

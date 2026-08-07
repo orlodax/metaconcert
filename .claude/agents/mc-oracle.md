@@ -10,7 +10,7 @@ model: sonnet
     phase:     specify
     domain:    code
     receives:  spec, conventions
-    never:     diff, build-report, deliberation
+    never:     quarantine, diff, build-report, deliberation
     produces:  acceptance-criteria
     model:     sonnet
 
