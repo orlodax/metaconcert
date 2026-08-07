@@ -231,9 +231,24 @@ the quarantine and to each other.
 The human chooses. If asked to choose, decline and restate the divergence. This
 stop is the entire reason the workflow exists; never merge it into a summary.
 
-**falsify** - Run the chosen decisive test. Report the raw observation. If the
-hypothesis dies, return to the DIVERGENCE STOP with the remaining ranking. Do
-NOT re-run the hypothesise phase with the dead hypothesis in context.
+**The verdict is not recordable here.** At this stop you record only WHAT
+diverged. Who was right is decided at `falsify`, by an observation, and nowhere
+else. A verdict formed at this stop is the human's post-hoc judgement of a
+question that is still open - which is hindsight bias, the exact distortion this
+measurement exists to route around. If `falsify` does not run, the ledger's
+verdict field reads `unresolved`. Never `agreed` or `diverged-and-X-was-right`
+on judgement alone.
+
+**falsify** - Run the chosen decisive test and report the raw observation. This
+phase produces the only evidence in the protocol; every "who was right" verdict
+in the ledger traces here or reads `unresolved`.
+
+Pre-register before running: the exact command, and what each possible outcome
+means, written down BEFORE the observation exists. Without pre-registration you
+will read the result as confirming whichever hypothesis you preferred.
+
+If the hypothesis dies, return to the DIVERGENCE STOP with the remaining ranking.
+Do NOT re-run `hypothesise` with the dead hypothesis in context.
 
 **specify** - Turn the decision into checkable criteria, authored blind to any
 implementation. Present OPEN QUESTIONS to the human before anything is built.

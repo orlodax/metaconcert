@@ -14,7 +14,7 @@ the member is just where it lives.
 | **mc-adversary** | Automation bias; IKEA effect; fluency illusion at review | No rationale in context; cannot return a clean verdict without enumerating checks and evidence; verifies by execution not by reading | High (Opus, different family) |
 | **Director** | Re-centralisation; consensus pressure; premature synthesis | Enforces the membrane, surfaces divergence unresolved, never forms a view | Free |
 
-## The three cross-cutting rules
+## The four cross-cutting rules
 
 1. **Independent, then compare. Never converge.** Agreement between members that
    shared a frame is an echo. Only agreement between members that could not see
@@ -23,6 +23,9 @@ the member is just where it lives.
    by which one member's blind spot becomes everyone's.
 3. **The human reconciles.** Every divergence lands on you, unsmoothed. If the
    workflow ever hands you a tidy consensus, it has failed silently.
+4. **Verdicts trace to observations.** "Who was right" is decided at `falsify`
+   by a pre-registered test, never at the divergence stop by judgement. Without
+   a falsify observation the ledger reads `unresolved`.
 
 ## Extending
 
