@@ -229,11 +229,18 @@ anything from it.
 **intake** - Convert the raw brief into an observation-only artifact. HOLD the
 quarantine. It goes to no member, ever.
 
-The quarantine is split by attribution: **A** = the human's own instinct this
-session, **B** = prior diagnoses already written into the source document. Only
-A is the measurement at the DIVERGENCE STOP. B is shown alongside as context and
-labelled as such - a prior recorded diagnosis agreeing with an independent one is
-weak evidence, because the record may be where that idea originated.
+The quarantine is split three ways. **A** = the human's own instinct this
+session and **B** = prior diagnoses already written into the source document,
+divided by attribution because they are different strengths of evidence. **C** =
+material that names no cause and would still let a member recognise or check its
+own answer - that prior work exists, what was already tried, what a reviewer is
+expected to find - divided out by consequence rather than attribution.
+
+Only A is the measurement at the DIVERGENCE STOP. B is shown alongside as context
+and labelled as such - a prior recorded diagnosis agreeing with an independent one
+is weak evidence, because the record may be where that idea originated. C is
+withheld and never scored: it contaminates without being a claim anyone can be
+right or wrong about.
 
 **hypothesise** - Generate falsifiable candidates and cost forecasts, blind to
 the quarantine and to each other.
