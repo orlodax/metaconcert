@@ -73,23 +73,39 @@ fabricated divergence, and the ledger becomes worse than empty.
 ### When NOT to use it
 
 Routine work. This costs many multiples of a normal session in tokens and in
-your attention. It earns that on: bugs where your first two fixes failed,
-irreversible or cross-repo changes, architectural decisions, and drafts that are
-not working for reasons you cannot name. Everything else, use your normal agents.
+your attention. It earns that on bugs where your first two fixes failed and on
+irreversible or cross-repo changes. Architectural decisions and drafts that are
+not working for reasons you cannot name are the weaker case, not an unqualified
+one: there is no causal hypothesis to falsify, so `falsify` has nothing decisive
+to run and no causal divergence is measured - an estimate you gave is still
+compared against the forecast. You pay in full and you get the map with
+its assumptions exposed, blind-authored criteria and adversarial review.
+Everything else, use your normal agents.
 
 ## The rule that makes this cheap
 
-A subagent's context starts fresh. The prompt string is the only channel for
-*parent-supplied* material - alongside it sits an ambient layer (harness
-instructions, tool definitions, environment and project files) that is not
-parent-supplied and is not suppressible; see `SKILL.md` for the measured size
-of that layer and its caveat. For the material the director controls,
+A subagent's context starts fresh, and the prompt string is the only channel
+the director composes. Alongside it sits an ambient layer (harness
+instructions, tool definitions, environment and project files) that the
+director does not compose and cannot suppress; see `SKILL.md` for the measured
+size of that layer and its caveat. For the material the director composes,
 **the membrane is enforced by the director's prompt construction, not by the
-member's own definition.**
+member's own definition** - and that material is the whole of what exclusion is
+structural for. Two channels sit outside it. Run 002's pre-registered,
+outcome-blinded test caught a stale snapshot of repository state - naming a
+quarantined filename the member's own `git status` did not - reaching members
+outside `receives` and outside the director's control (`.metaconcert/ledger.md`,
+run 002 - a local record, gitignored and absent from the repository's own commit
+history, so not independently checkable from the repo alone); that it is
+forwarded from the parent session is inference, not the observation, and the
+member declined to attribute the origin. Separately, any member's tool grants
+reach withheld material anywhere in the working tree, tracked or not.
+`SKILL.md` names the five
+ceilings.
 
 Consequence: existing agents can serve as Metaconcert members with ZERO
-modification. You are not changing them; you are changing what parent-supplied
-material reaches them.
+modification. You are not changing them; you are changing what the director
+puts in front of them.
 
 ## Direction of control
 
@@ -100,10 +116,10 @@ possible, it is the wrong shape - see below.
 
 ## Why the architect must not run the Metaconcert
 
-a coordinator agent holds project context and forms judgments. That is its value in
-normal operation and its disqualification here. The director must have no view;
-an architect-as-director puts your most context-saturated agent in the one seat
-that has to be empty, and every downstream member inherits its frame.
+A coordinator agent holds project context and forms judgments. That is its value
+in normal operation and its disqualification here. The director must have no
+view; an architect-as-director puts your most context-saturated agent in the one
+seat that has to be empty, and every downstream member inherits its frame.
 
 Split the architect's two functions:
 
@@ -114,8 +130,8 @@ Split the architect's two functions:
 
 ## Two modes, never mixed
 
-**Ordinary work.** a coordinator agent coordinates its subordinates exactly as it
-does today. Metaconcert is not involved. Nothing changes.
+**Ordinary work.** A coordinator agent coordinates its subordinates exactly as
+it does today. Metaconcert is not involved. Nothing changes.
 
 **Metaconcert run.** You invoke `/metaconcert` in the main session. The main
 session is the director. It spawns `mc-*` members and, where useful, existing
@@ -134,12 +150,12 @@ Use only the material below. Do not request additional context.
 Do not spawn subagents. Do not coordinate other agents.
 Return only the artifact requested.
 ---
-<permitted material per the membrane table>
+<material from the receiving member's `receives` list, verbatim>
 ```
 
 **Worker-shaped agents** (writers, implementers): safe. Call-site constraint is
-sufficient. a worker agent receives intent spec + canon map, never the
-deliberation.
+sufficient. A worker agent receives the `decision`, the `system-map` and the
+`acceptance-criteria`, never the `deliberation`.
 
 **Coordinator-shaped agents** (architects, leads): constrained but degraded.
 Call-site constraint controls the INFORMATION membrane; it does not prevent ROLE
@@ -149,11 +165,11 @@ of constraining an existing one. This is a real limitation, not a caveat.
 
 ## Measurement
 
-`.metaconcert/ledger.md`. The number that matters differs by track:
+`.metaconcert/ledger.md`. One number matters.
 
 **Divergence rate**: how often the independently derived diagnosis disagreed with
-the belief that was quarantined at intake, and how often the independent one was
-right when it did.
+the belief that was quarantined at intake, and - where a falsify observation
+could adjudicate - which side was right when it did.
 
 That number is normally unobtainable, because normally you type your instinct
 into the prompt and destroy the measurement before anything can be compared to
