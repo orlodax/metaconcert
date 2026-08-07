@@ -45,14 +45,17 @@ the prompt string is the parent's only channel into it. That makes every handoff
 It does not make the member's context empty. Alongside your prompt sits an
 **ambient layer** — harness instructions, tool definitions, environment and
 project files — measured at roughly 28,500 tokens against a 257-token prompt in
-this project's own first run. That layer is not suppressible and should not be:
+this project's own first run (`ledger.md`, run 001 — a local record, gitignored
+and absent from the repository's own commit history, so this figure is not
+independently checkable from the repo alone). That layer is not suppressible and should not be:
 it is what makes a member a capable agent rather than a bare completion.
 
 So the guarantee is narrower than it first looks, and worth stating exactly:
 **exclusion of parent-supplied material is structural; exclusion of everything
 else is not.** An earlier version of this README claimed the prompt string was
 the only channel into a member's context. That was false, and the project's own
-protocol is what caught it — see `ledger.md`, run 001.
+protocol is what caught it — see `ledger.md`, run 001 (same uncheckable-from-repo
+caveat as above).
 
 ## The shape
 

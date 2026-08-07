@@ -88,8 +88,10 @@ isolation this protocol buys, and it is real.
 It is NOT true that the subagent's context contains only your prompt. It also
 carries an **ambient layer**: harness system instructions, tool definitions,
 environment and project files, permission-mode directives. Measured at roughly
-28,500 tokens against a 257-token prompt (ledger run 001). This layer is not
-suppressible and should not be. It is what makes a member a capable agent rather
+28,500 tokens against a 257-token prompt (`.metaconcert/ledger.md`, run 001 -
+a local record, gitignored and absent from the repository's own commit
+history, so this figure is not independently checkable from the repo alone).
+This layer is not suppressible and should not be. It is what makes a member a capable agent rather
 than a bare completion.
 
 So: **the exclusion of *parent-supplied* material is structural. The exclusion of
