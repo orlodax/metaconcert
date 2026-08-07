@@ -74,7 +74,8 @@ collapsing them destroys the measurement.
 
 **A. Reporter's own instinct** - causal claims made by the human running this
 session, in this invocation. This is what the independent diagnosis is measured
-against. If absent, say so plainly: the run will produce no divergence signal.
+against. If absent, say so plainly: any divergence signal this run produces
+will be the weaker Mode B kind, measured against class B, or none at all.
 
 **B. Prior third-party claims in the source** - causal claims, diagnoses,
 proposed fixes and routed-out requirements already written into the source
@@ -88,8 +89,9 @@ expected to find. Attribution does not matter here, consequence does. This is
 what step 3's test catches and what A and B by construction cannot, which is why
 it gets its own slot instead of being forced into one of theirs.
 
-All three are withheld from downstream members. Only A is the measurement; B is
-context for it; C is neither and is never scored.
+All three are withheld from downstream members. A is the measurement where it
+exists; where A is empty and B is not, B stands in as the weaker Mode B
+comparison; C is never scored either way.
 
 Curated issue trackers, filed tickets and prior agent write-ups are dense with
 class B. Do not mistake a prior author's

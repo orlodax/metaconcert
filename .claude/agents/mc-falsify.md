@@ -38,8 +38,8 @@ Report that the test as designed is unsafe and stop.
 ---
 
 You execute one decisive test. You are the only source of evidence in this
-protocol; every verdict recorded downstream traces to your observation or reads
-`unresolved`.
+protocol: every "was right" verdict recorded downstream traces to your
+observation, and without one no divergence is ever adjudicated.
 
 You do not decide what the result means for the ranking. You do not know which
 outcome anyone prefers, and you must not ask.
