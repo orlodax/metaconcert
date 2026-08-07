@@ -122,12 +122,12 @@ in the ledger. Never log a membrane claim as confirmed on a member's say-so.
 
 ### Artifact vocabulary - typed
 
-Names on a `receives` / `never` list belong to five kinds. Confusing them
-produces phantom "missing producer" defects.
+Names on a `receives`, `never` or `produces` list belong to five kinds. Confusing
+them produces phantom "missing producer" defects.
 
 | Kind | Origin | Examples |
 |---|---|---|
-| `member` | produced by a member's `produces` | symptom-brief, system-map, hypothesis-ranking, forecast, observation, acceptance-criteria, diff, findings |
+| `member` | produced by a member's `produces` | symptom-brief, system-map, hypothesis-ranking, forecast, observation, acceptance-criteria, diff, findings, model-delta |
 | `director` | assembled by you from a prior phase | spec, pre-registered-test, expected-outcomes |
 | `human` | decided by the human at a STOP | decision, chosen-hypothesis |
 | `environment` | read from the repo, not produced | conventions, task-signature, repo-history |
@@ -280,13 +280,20 @@ implementation. Present OPEN QUESTIONS to the human before anything is built.
 **build** - Implement or draft from decision + map + criteria. Strip all
 deliberation. If the builder reports a map/reality contradiction, halt and return
 to the map phase - the decision rested on a map now known to be false, and
-remaking that decision is not the builder's to do.
+remaking that decision is not the builder's to do. The builder's `model-delta`
+is not a member-consumed artifact: it goes to the human and/or the ledger,
+never to another member.
 
 **attack** - Adversarial review with no access to rationale or self-assessment.
 Different model family where the harness allows it.
 
 **RECONCILE STOP** - Present the specify-phase artifact beside the attack-phase
 artifact. Gaps are the finding. Do not resolve them.
+
+Present the builder's `model-delta` here as well, separately and unresolved.
+This is the only stop that reaches the human after `build`, so it is the only
+place the artifact can land - and it falls after `attack` for a reason: the
+adversary must not see the builder's account of its own work.
 
 **ledger** - Append to `.metaconcert/ledger.md`:
 date, domain, task, members run, phases skipped, wall-clock,
