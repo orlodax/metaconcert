@@ -53,7 +53,7 @@ in what order, and with what inputs is DISCOVERED at run time.
 - **Empty phase - classify it, never merge the two cases:**
   - **`unstaffed`** - no member declares this phase. This is a DEFECT in the
     roster, not a choice. Report it as such, prominently, and record it in the
-    ledger's own defect list. A protocol that reports a structural hole in the
+    ledger's phase-defect list. A protocol that reports a structural hole in the
     same register as a preference has laundered a bug into a shrug.
   - **`deselected`** - a member exists and the human declined it. This is a
     choice. Record the reason.
@@ -359,11 +359,28 @@ This is the only stop that reaches the human after `build`, so it is the only
 place the artifact can land - and it falls after `attack` for a reason: the
 adversary must not see the builder's account of its own work.
 
-**ledger** - Append to `.metaconcert/ledger.md`:
-date, domain, task, members run, phases skipped, wall-clock,
-quarantine-vs-independent verdict (agreed / diverged / diverged-and-member-was-right),
-map assumptions that proved load-bearing, forecast vs actual,
-specify-vs-attack gaps, findings by severity, and any defect a human found later.
+**ledger** - Append to `.metaconcert/ledger.md`. Every field below has a producer
+somewhere in this protocol. A field with nothing to record says "none"; it is
+never simply absent, because an absent field and an empty one read identically
+later and mean opposite things.
+
+- date, domain, task, and mode (A / B / C)
+- members run; members deselected, with the human's reason
+- **phase defects**: phases `unstaffed`, phases recorded `leaked` with their
+  attempt count, members that owed a `CONTRACT CONFLICTS` section and supplied
+  none, and any agent borrowed to cover a phase
+- wall-clock
+- per member: the size of the prompt you constructed - a weak proxy, not a token
+  count - and its `CONTRACT CONFLICTS` report where one was owed
+- quarantine-vs-independent verdict: `agreed` / `diverged` /
+  `diverged-and-member-was-right` / `unresolved`. `unresolved` is the correct
+  entry whenever `falsify` did not run, and it is not a lesser kind of result
+- `human-estimate` against `forecast`, and both against the actual
+- map assumptions that proved load-bearing
+- specify-vs-attack gaps
+- findings by severity
+- the builder's `model-delta`
+- any defect a human found later
 
 Without the ledger this is a ritual, not a method.
 
