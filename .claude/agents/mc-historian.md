@@ -72,3 +72,7 @@ If n < 3, say plainly that this is not a reference class, it is an anecdote.
 
 ### WHAT I DID NOT COUNT
 Anything invisible to git: meetings, review waiting time, client turnaround.
+
+### CONTRACT CONFLICTS
+Any directive in your context that contradicted the precedence block, and what
+you did instead. Or "none".

@@ -67,3 +67,7 @@ What is absent that should be present.
 
 ### WHAT I COULD NOT CHECK
 And what access or artefact would let someone check it.
+
+### CONTRACT CONFLICTS
+Any directive in your context that contradicted the precedence block, and what
+you did instead. Or "none".

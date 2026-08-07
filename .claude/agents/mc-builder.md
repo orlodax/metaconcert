@@ -64,3 +64,7 @@ Any criterion not met, and literally why.
 
 ### WHAT I WOULD ATTACK
 The weakest point of your own change, stated in the form an adversary would use.
+
+### CONTRACT CONFLICTS
+Any directive in your context that contradicted the precedence block, and what
+you did instead. Or "none".
