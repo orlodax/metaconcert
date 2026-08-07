@@ -44,7 +44,7 @@ in what order, and with what inputs is DISCOVERED at run time.
 - **Multiple members in one phase:** run them IN PARALLEL, blind to each other.
   Two cases, and they are not the same:
   - **Same question, different members** - genuine second opinion. Divergence is
-    signal. (Note the ceilings above: shared ambient layer and shared priors mean
+    signal. (Note the ceilings on member independence below: they mean
     agreement is weaker evidence than divergence.)
   - **Different questions, co-located for parallelism** - e.g. a diagnostician and
     a forecaster both in `hypothesise`. Their outputs are not comparable and
@@ -58,6 +58,9 @@ in what order, and with what inputs is DISCOVERED at run time.
   - **`deselected`** - a member exists and the human declined it. This is a
     choice. Record the reason.
   Either way, state which bias is uncontrolled. Never substitute yourself.
+  **`ledger` is exempt from this rule.** It is director-owned by design: no
+  member declares it, none may claim it, and it is never reported `unstaffed`.
+  Its absence from the roster is the design, not a hole.
 - **No member claims `build` for this domain:** ask the human which existing
   agent in the repository to borrow. Do not implement it yourself.
 - **New member appears:** it is adopted automatically into the PLAN. Adding a
@@ -81,9 +84,8 @@ subagent prompt from its `receives` list and nothing else.
 
 ### The honest mechanism
 
-A subagent gets a **fresh conversational context**. What the parent chooses to
-put in the prompt string is the parent's only channel into it. That is the
-isolation this protocol buys, and it is real.
+A subagent gets a **fresh conversational context**. The prompt string is the
+only channel YOU compose. It is not the only channel that reaches the member.
 
 It is NOT true that the subagent's context contains only your prompt. It also
 carries an **ambient layer**: harness system instructions, tool definitions,
@@ -91,25 +93,64 @@ environment and project files, permission-mode directives. Measured at roughly
 28,500 tokens against a 257-token prompt (`.metaconcert/ledger.md`, run 001 -
 a local record, gitignored and absent from the repository's own commit
 history, so this figure is not independently checkable from the repo alone).
-This layer is not suppressible and should not be. It is what makes a member a capable agent rather
-than a bare completion.
+This layer is not suppressible and should not be. It is what makes a member a
+capable agent rather than a bare completion.
 
-So: **the exclusion of *parent-supplied* material is structural. The exclusion of
-everything else is not.** State this plainly if a human asks what the membrane
-guarantees. Do not repeat the claim that the prompt string is the only channel
-into a member's context - it is false and it was the load-bearing error of the
-first version of this skill.
+Two further channels sit outside anything you compose. Run 002 confirmed by
+pre-registered, outcome-blinded test that a stale `gitStatus` snapshot of
+repository state reached members outside `receives`: it named a quarantined
+filename while the member's own `git status` disagreed
+(`.metaconcert/ledger.md`, run 002 - the same local, gitignored record cited
+elsewhere in this file, so not independently checkable from the repo alone).
+The member declined to attribute the snapshot's origin: that it is the PARENT
+session's state forwarded down, rather than harness-computed, is inference,
+not observation. And a member's own tool grants reach the working tree: one
+`grep` for an error string lands it in the file the quarantine withheld.
 
-### Two ceilings you cannot design around
+So: **exclusion is structural only for the material you compose and choose to
+withhold.** For the ambient layer, for state snapshots the harness delivers on
+its own, and for whatever a member's own tools can read, there is no exclusion
+at all. State this plainly if a human asks what the membrane guarantees. Do
+not repeat the claim
+that the prompt string is the only channel into a member's context - it is
+false, it was the load-bearing error of the first version of this skill, and run
+002 showed it failing in a second way.
 
-1. **Shared ambient layer.** Every member sees an identical ambient context.
-   Members are independent in *conversational* context and identical in *ambient*
-   context.
-2. **Shared priors.** Isolation decorrelates context, never training weights.
+### The five ceilings you cannot design around
 
-Both mean member agreement is worth less than it looks. Running the `attack`
-phase on a different model family is the only lever that touches either, and it
-is partial.
+Each is stated with its lever, where one exists.
+
+1. **Shared priors.** Isolation decorrelates context, never training weights.
+   Partial lever: run `attack` on a different model family, where the harness
+   offers one.
+2. **Shared ambient layer.** Every member carries an identical harness layer -
+   the ~28,500-token measurement above. Members are independent in
+   *conversational* context and identical in *ambient* context. No lever.
+3. **Harness-forwarded parent-session state.** The `gitStatus` channel above:
+   stale state reaching members outside `receives`, which you can neither
+   suppress nor read back to see what it carried. The name records the likely
+   origin; that origin is inference, not observation. No lever.
+4. **Member tool grants reach the working tree.** Any member holding Read, Grep
+   or Glob can retrieve withheld material that sits anywhere in the working
+   tree, tracked or not - gitignored is not unreadable. The source document
+   carrying a prior diagnosis, design-rationale docs, the ledger itself. One
+   grep for an error string is enough. Run 002 observed it happening
+   unbidden, and physical removal of the files was tried and defeated: the tree
+   became unrepresentative and members correctly reported the absence as a
+   defect (`.metaconcert/ledger.md`, run 002 - the local, gitignored record
+   cited above, so not independently checkable from the repo alone). Lever: none
+   inside a run. Only keeping quarantine-class material out of the tree between
+   runs.
+5. **You hold everything, and only discipline keeps it out.** The quarantine,
+   the ranking and the human's choice all sit in the one context that composes
+   every member prompt. Withholding is mechanical once you have decided to
+   withhold; the deciding is not, and discipline is the commodity this protocol
+   refuses to trust in members. Pre-registration closes this channel for the
+   test, and the construction rules below narrow it for `spec`, `task-signature`
+   and `decision`. Nothing closes it.
+
+All five mean the same thing: member agreement is worth less than it looks, and
+it is weaker evidence than member divergence.
 
 ### Self-report is not verification
 
@@ -131,20 +172,59 @@ membrane claim as confirmed on a member's say-so.
 
 ### Artifact vocabulary - typed
 
-Names on a `receives`, `never` or `produces` list belong to five kinds. Confusing
-them produces phantom "missing producer" defects.
+Names on a `receives`, `never` or `produces` list belong to six kinds. Confusing
+them produces phantom "missing producer" and "missing consumer" defects.
 
 | Kind | Origin | Examples |
 |---|---|---|
-| `member` | produced by a member's `produces`, or carried as a field inside one | symptom-brief, system-map, hypothesis-ranking, pre-registered-test, expected-outcomes, forecast, observation, acceptance-criteria, diff, findings, model-delta |
-| `director` | assembled by you from prior-phase artifacts, by selection and composition - never by authorship | spec |
-| `human` | supplied by the human - at a STOP, or when you ask at intake | decision, chosen-hypothesis, human-estimate |
-| `environment` | read from the repo, not produced | conventions, task-signature, repo-history |
-| `negative` | a CLASS of material, never an artifact; appears only on `never` lists and means "material of this kind from any source" | deliberation, rationale, rejected-hypotheses, build-report, quarantine |
+| `member` | produced by a member's `produces`, or carried as a field inside one | symptom-brief, system-map, hypothesis-ranking, pre-registered-test, expected-outcomes, forecast, observation, acceptance-criteria, diff, findings |
+| `director` | assembled by you from prior-phase artifacts, by selection and composition - never by authorship | spec, task-signature |
+| `human` | supplied by the human - in the invoking brief, at a STOP, or when you ask at intake | raw-report, decision, chosen-hypothesis |
+| `environment` | read from the repo, not produced | conventions, repo-history, referenced-files |
+| `held` | produced by a member or collected from the human, then held by YOU: routed to the human and/or the ledger, never to any member, because this protocol bars it by name | quarantine, model-delta, human-estimate |
+| `negative` | a CLASS of material, never an artifact; appears only on `never` lists and means "material of this kind from any source" | deliberation, rationale, rejected-hypotheses, build-report, which-outcome-the-human-hopes-for |
 
 Only `member` artifacts flow member-to-member. Never rename, never summarise,
-never merge them. `negative` names are exclusions, not deliverables - a missing
-producer for one is correct, not a gap.
+never merge them. The field-level routing of the chosen `hypothesis-ranking`
+entry (below) is the one enumerated exception, verbatim throughout.
+`negative` names are exclusions, not deliverables - a missing
+producer for one is correct, not a gap. `held` names are the mirror case: a
+producer and no member consumer, by design. A `held` name that also appears on
+some member's `never` list is carrying a redundant guard, not its definition -
+routing one to a member is a membrane breach whether or not that member declared
+it.
+
+### What you may compose
+
+Two names in the table above are yours to assemble, and assembling is not
+authoring.
+
+**`spec`** is built ONLY by verbatim selection from named prior artifacts: the
+`decision` and the relevant sections of `system-map`. Every section of the
+spec carries a one-line provenance tag naming the artifact it came from - the
+tags are yours to write; everything under them is selection. **A substantive
+sentence with no source artifact is authorship and is forbidden** - it puts
+your own view into the one input the `specify` member has to treat as given.
+
+**The chosen `hypothesis-ranking` entry splits by field**, once, at the
+DIVERGENCE STOP's decision, and this is the complete routing:
+- its hypothesis statement and `Predicts` line MAY be appended verbatim to the
+  `decision` (see the `build` phase) - they are the claim, not the argument;
+- its `Test` and `Outcome map` fields flow ONLY to `falsify`, relabelled, as
+  `pre-registered-test` and `expected-outcomes`;
+- its `Mechanism`, `Prior` and `Cost` fields, and the ranking's ordering, are
+  the diagnostician's reasoning - `rationale`-class, and rationale reaches NO
+  member from any source. The human sees them at the DIVERGENCE STOP; nothing
+  downstream does.
+
+**`task-signature`** is derived ONLY from the structural content of
+`symptom-brief`: files touched, subsystems crossed, whether an interface,
+migration or config changes, whether it spans repos. Where the brief is silent
+on one of these, record `not stated` rather than supplying the answer - the
+supplying is authorship. Never from `raw-report`,
+never from the quarantine, never from `human-estimate` (see RUN MODES). State
+that provenance when you pass it - a signature whose source you cannot name is
+one you authored.
 
 ### Absolute prohibitions
 
@@ -153,8 +233,13 @@ producer for one is correct, not a gap.
 - **NO consensus-seeking.** You surface divergence unresolved. Divergence is the
   product of this workflow, not a mess to tidy before showing the human.
 - **NO summarising member output.** Pass artifacts through verbatim. Your prose
-  summary is precisely where the fluency illusion re-enters.
+  summary is precisely where the fluency illusion re-enters. The harness can do
+  this to you: if it compacts or summarises the session mid-run, verbatim
+  pass-through is silently broken and nothing downstream can detect it. Record
+  any compaction you notice as a phase defect.
 - **NO self-substitution.** If a member is missing, the phase is missing.
+  `ledger` is the one phase no member is meant to claim, so writing it yourself
+  substitutes for nobody.
 
 ### When two prohibitions collide
 
@@ -217,7 +302,7 @@ session would, then CONFIRM the referent before running anything.
 - **An ordinal** ("item 42 of foo.md") - ordinals are ambiguous: the 42nd
   checkbox, the 42nd numbered entry, and the entry *labelled* 42 are often three
   different things. Resolve to your best candidate, then ECHO IT BACK in one
-  line - the entry's own first line - and wait. Never run seven members against
+  line - the entry's own first line - and wait. Never run a full roster against
   a guess.
 - **A fuzzy reference** ("the auth thing we filed last week") - search, offer at
   most three candidates, ask.
@@ -254,7 +339,7 @@ Then select the mode:
 
 **Mode A - human instinct present.** Strongest signal. The independent
 hypothesis is measured against what the human believed, and the ledger records
-whether they diverged and who was right.
+whether they diverged and - where an observation can settle it - who was right.
 
 **Mode B - no human instinct, but the source already contains prior analysis**
 (a filed issue with a diagnosis, an agent's write-up, a previous session's
@@ -293,11 +378,13 @@ material that names no cause and would still let a member recognise or check its
 own answer - that prior work exists, what was already tried, what a reviewer is
 expected to find - divided out by consequence rather than attribution.
 
-Only A is the measurement at the DIVERGENCE STOP. B is shown alongside as context
-and labelled as such - a prior recorded diagnosis agreeing with an independent one
-is weak evidence, because the record may be where that idea originated. C is
-withheld and never scored: it contaminates without being a claim anyone can be
-right or wrong about.
+Where A exists it is the measurement at the DIVERGENCE STOP, and B is shown
+alongside as context, labelled as such. Where A is empty and B is not - Mode B
+- the comparison runs against B instead, weaker and carrying the
+shared-lineage caveat: a prior recorded diagnosis agreeing with an independent
+one is weak evidence, because the record may be where that idea originated. C
+is withheld and never scored: it contaminates without being a claim anyone can
+be right or wrong about.
 
 **hypothesise** - Generate falsifiable candidates and cost forecasts, blind to
 the quarantine and to each other.
@@ -305,8 +392,9 @@ the quarantine and to each other.
 **DIVERGENCE STOP** - Present unresolved, side by side:
 - Mode A: the human's instinct vs the independent hypothesis ranking.
   Mode B: the prior recorded analysis vs the independent ranking, with the
-  shared-lineage caveat stated. Mode C: skip this comparison entirely and say so
-  once - do not manufacture a divergence out of nothing.
+  shared-lineage caveat stated. Mode C: present the ranking alone - there is
+  no comparison to draw; say so once and do not manufacture a divergence out
+  of nothing.
 - every `assumption I am supplying` from the map phase, verbatim
 - any forecast vs the human's own estimate
 
@@ -318,18 +406,21 @@ diverged. Who was right is decided at `falsify`, by an observation, and nowhere
 else. A verdict formed at this stop is the human's post-hoc judgement of a
 question that is still open - which is hindsight bias, the exact distortion this
 measurement exists to route around. If `falsify` does not run, the ledger's
-verdict field reads `unresolved`. Never `agreed` or `diverged-and-X-was-right`
+verdict field reads `unresolved` in Modes A and B - a Mode C run reads
+`no-comparison` either way. Never `agreed` or `diverged-and-X-was-right`
 on judgement alone.
 
 **falsify** - Run the chosen decisive test and report the raw observation. This
-phase produces the only evidence in the protocol; every "who was right" verdict
-in the ledger traces here or reads `unresolved`.
+phase produces the only evidence in the protocol: every `-was-right` verdict in
+the ledger traces to an observation from here, and every verdict but
+`unresolved` and `no-comparison` requires that this phase ran at all.
 
 **You do not write the test.** Pre-registration is authored in `hypothesise`, by
 a member that has not seen the quarantine and does not yet know which hypothesis
 anyone will choose. `pre-registered-test` and `expected-outcomes` are fields
 carried inside `hypothesis-ranking`; your job is to select the entry the human
-picked and transcribe it verbatim.
+picked and transcribe its `Test` and `Outcome map` fields verbatim - those two
+fields only, per the field routing above - relabelled as below.
 
 Authoring it yourself would put the design of the only evidence in this protocol
 in the one context that has seen everything - quarantine, map, ranking, and the
@@ -338,15 +429,19 @@ test checks that a map is falsifiable, not that it was well chosen, and it is
 barred from judging the design at all. A test written after the choice is a test
 shaped by it.
 
-Transcribe under NEUTRAL LABELS. The member gets the command and the outcomes as
-OUTCOME-P / OUTCOME-Q, with the hypothesis identity and the label mapping
-withheld; you un-blind when you report the observation. An experimenter who knows
-which result is wanted finds it, and the member cannot un-know what you send.
-**Relabelling is the only edit you may make to a pre-registered test.**
+Transcribe under NEUTRAL LABELS. **Relabelling is the only edit you may make to
+a pre-registered test**, and it is exactly this: throughout the transcribed test
+and its outcome map, every hypothesis identifier - `H<n>` and any hypothesis
+name - becomes a neutral token, and every outcome name becomes OUTCOME-P /
+OUTCOME-Q. Nothing else changes: not the command, not a path, not a threshold,
+not a word of the conditions in the outcome map. You keep the mapping and
+un-blind only when you report the observation. An experimenter who knows which
+result is wanted finds it, and the member cannot un-know what you send.
 
 If the pre-registered test cannot be executed as written, you may NOT rewrite it.
-Stop and tell the human, who either accepts `unresolved` for this run or
-authorises a re-dispatch to the `hypothesise` member for a replacement. Ask for
+Stop and tell the human, who either accepts that this run keeps no falsify
+evidence - `unresolved` in Modes A and B - or authorises a re-dispatch to the
+`hypothesise` member for a replacement. Ask for
 that replacement without disclosing that the hypothesis was chosen - "author an
 executable replacement test for H2", never "H2 is the one we are going with".
 
@@ -357,13 +452,32 @@ Do NOT re-run `hypothesise` with the dead hypothesis in context.
 empty-phase rule - report it as `unstaffed`, then ask the human which agent to
 borrow, or run the pre-registered command yourself and report the raw output with
 no interpretation. Losing this phase silently costs the protocol its only
-evidence, which is why it is the one phase you may execute directly.
+evidence, which is why it is the one MEMBER phase you may execute directly -
+`ledger` is director-owned by design and was never a member phase.
+
+Prefer the borrowed agent. A test you run yourself is **un-blinded by
+construction**: you hold the label mapping and you hold the quarantine, so
+relabelling cannot blind the party executing the test. The pre-registration
+still binds and you still may not edit the test - but the blinding that makes
+this phase evidence is gone. Record such an observation in the ledger as
+un-blinded, and discount its evidentiary quality on that ground.
 
 **specify** - Turn the decision into checkable criteria, authored blind to any
 implementation. Present OPEN QUESTIONS to the human before anything is built.
 
 **build** - Implement or draft from decision + map + criteria. Strip all
-deliberation. If the builder reports a map/reality contradiction, halt and return
+deliberation.
+
+**What `decision` may contain.** The decision is the human's, authored at the
+stop. You may append to it, verbatim, the hypothesis statement and `Predicts`
+line of the ONE `hypothesis-ranking` entry that decision names - the claim is
+the decision's referent, and a builder told to fix H2 without H2's text has
+been handed a pointer rather than an instruction. Nothing else from the
+ranking: the entry's `Mechanism`, `Prior` and `Cost` are the diagnostician's
+reasoning, which the builder's own contract refuses, and every other entry is
+`rejected-hypotheses`, class `negative`.
+
+If the builder reports a map/reality contradiction, halt and return
 to the map phase - the decision rested on a map now known to be false, and
 remaking that decision is not the builder's to do. The builder's `model-delta`
 is not a member-consumed artifact: it goes to the human and/or the ledger,
@@ -389,13 +503,38 @@ later and mean opposite things.
 - members run; members deselected, with the human's reason
 - **phase defects**: phases `unstaffed`, phases recorded `leaked` with their
   attempt count, members that owed a `CONTRACT CONFLICTS` section and supplied
-  none, and any agent borrowed to cover a phase
+  none, any agent borrowed to cover a phase, any falsify observation recorded
+  un-blinded under the borrow-fallback, and any compaction or summarisation
+  of the session the harness performed mid-run
 - wall-clock
 - per member: the size of the prompt you constructed - a weak proxy, not a token
   count - and its `CONTRACT CONFLICTS` report where one was owed
 - quarantine-vs-independent verdict: `agreed` / `diverged` /
-  `diverged-and-member-was-right` / `unresolved`. `unresolved` is the correct
-  entry whenever `falsify` did not run, and it is not a lesser kind of result
+  `diverged-and-member-was-right` / `diverged-and-human-was-right` /
+  `unresolved` / `no-comparison`. In Mode A the comparison is against the
+  class-A instinct; in Mode B it is against the quarantined prior analysis,
+  recorded under this same field with the shared-lineage caveat stated. In the
+  value names, `human` denotes the non-member side of the comparison - in Mode
+  B, the prior analysis rather than the session's human.
+  `no-comparison` is the Mode C entry and the only value a Mode C run may
+  record, whether or not `falsify` ran: no instinct and no prior analysis
+  existed, so the field has no referent - record the mode. `agreed` records
+  that the compared claim and the independent ranking named the same cause,
+  leaving nothing to adjudicate; it
+  still requires that `falsify` ran, because agreement noticed at the stop is
+  the resemblance a human sees in hindsight. Any `-was-right` value requires a
+  `falsify` observation that bears on that party's hypothesis. The non-member
+  side is adjudicable ONLY where the compared claim coincides with a hypothesis
+  the ranking generated independently: the test author never sees the
+  quarantine, so no test can be authored that discriminates otherwise, and
+  killing or sparing the member's hypothesis does not adjudicate the other
+  unless the two are mutually exclusive. Bare `diverged` records the divergence
+  with adjudication unavailable: `falsify` ran, but nothing it observed licensed
+  a `-was-right` value for either party. In Modes A and B, `unresolved`
+  whenever the `falsify` phase did not run at all - it is not a lesser kind of
+  result. A verdict set
+  that can record member wins but not human wins biases this statistic in the
+  protocol's favour
 - `human-estimate` against `forecast`, and both against the actual
 - map assumptions that proved load-bearing
 - specify-vs-attack gaps
