@@ -34,28 +34,39 @@ Four channels carry your bias into agentic work:
    and re-derive. In a session, your opening frame is literally in the context,
    re-read every turn. It cannot decay.
 
-Metaconcert restores friction by construction rather than by discipline.
+Metaconcert restores friction by construction between members, and by
+discipline at the director: once the director decides to withhold something,
+the withholding is mechanical — the deciding never is, and that weaker second
+guarantee is named here rather than hidden.
 
 ## The mechanism it rests on
 
 A subagent gets a **fresh conversational context**, and what the parent puts in
-the prompt string is the parent's only channel into it. That makes every handoff
-**a membrane whose permeability you specify** for parent-supplied material.
+the prompt string is the parent's deliberate channel into it. That makes every
+handoff **a membrane whose permeability you specify** for the material the
+parent composes.
 
 It does not make the member's context empty. Alongside your prompt sits an
 **ambient layer** — harness instructions, tool definitions, environment and
 project files — measured at roughly 28,500 tokens against a 257-token prompt in
 this project's own first run (`ledger.md`, run 001 — a local record, gitignored
 and absent from the repository's own commit history, so this figure is not
-independently checkable from the repo alone). That layer is not suppressible and should not be:
-it is what makes a member a capable agent rather than a bare completion.
+independently checkable from the repo alone). That layer is not suppressible and
+should not be: it is what makes a member a capable agent rather than a bare
+completion.
 
 So the guarantee is narrower than it first looks, and worth stating exactly:
-**exclusion of parent-supplied material is structural; exclusion of everything
-else is not.** An earlier version of this README claimed the prompt string was
-the only channel into a member's context. That was false, and the project's own
-protocol is what caught it — see `ledger.md`, run 001 (same uncheckable-from-repo
-caveat as above).
+**exclusion is structural for the material the director composes and chooses to
+withhold; exclusion of everything else is not.** Run 002 located the edge of
+that scope: a stale snapshot of repository state reached members outside the
+prompt string entirely, and the director cannot suppress it (`ledger.md`, run
+002 — same uncheckable-from-repo caveat as above). That it was the parent
+session's state forwarded down, rather than harness-computed, is inference;
+that it arrived outside the director's reach is not.
+
+An earlier version of this README claimed the prompt string was the only
+channel into a member's context. That was false, and the project's own protocol
+is what caught it — see `ledger.md`, run 001 (same caveat).
 
 ## The shape
 
@@ -80,6 +91,10 @@ Three rules do the work:
 
 **Divergence rate**: how often an independently derived diagnosis disagreed with
 the belief quarantined at intake — and how often the independent one was right.
+The human's side of that second question is adjudicable only when the
+quarantined instinct coincides with a hypothesis the members generated
+independently; otherwise the ledger records the divergence and leaves
+adjudication open.
 
 That number is normally unobtainable. You type your instinct into the prompt and
 destroy the measurement before anything can be compared against it. Metaconcert
@@ -123,16 +138,30 @@ the data. That is the realistic failure mode — not that it does not work.
 
 - The member/bias mapping is **design intent, not measurement**. Biases do not
   partition cleanly.
-- **Two ceilings on independence.** Members share a training lineage, so
-  isolation decorrelates *context*, not *priors*. And every member sees an
-  identical ambient layer, so members are independent in conversational context
-  and identical in ambient context. Running the `attack` phase on a different
-  model family is the only lever touching either, and it is partial.
+- **Five ceilings on independence, not two.** Shared priors — isolation
+  decorrelates *context*, never *priors*. An identical ambient layer in every
+  member. Harness-forwarded parent-session state: run 002 saw a stale
+  repository-state snapshot reach members outside the director's control — the
+  name records its origin as inferred, not observed
+  (`ledger.md` — same uncheckable-from-repo caveat as above). Member tool
+  grants, which reach quarantine-class material sitting anywhere in the working
+  tree, tracked or not. A director that holds everything: withholding is
+  mechanical once decided, and the deciding is discipline, not structure. Only
+  the first has a lever inside a run — the `attack` phase on a
+  different model family, and it is partial; the fourth has one only between
+  runs, by keeping such material out of the tree. `SKILL.md` states all five in
+  full.
 - **Member self-report is not verification.** Convergent membrane reports from
   members sharing an ambient layer and identical reporting instructions are one
-  measurement taken N times. No member can read its own token count either, so
-  the only mechanical check is the size of the prompt the director built — a
-  weak proxy, not a measurement of what arrived.
+  measurement taken N times. No shipped member can read its own token count
+  either (a borrowed agent's grant may differ — check), so the only mechanical
+  check is the size of the prompt the director built — a weak proxy, not a
+  measurement of what arrived.
+- **Invocation is selected on failure.** The protocol is reached for only after
+  the cheap loop has already failed — so every run is drawn from problems
+  pre-selected for the human's instinct having been wrong. That inflates both
+  the measured divergence rate and the member-win rate. The control arm in the
+  pilot design corrects for it only partially.
 - **No efficacy data exists.** The ledger is how that changes. Until it has
   thirty entries with a control arm, this is a hypothesis with good ergonomics.
 
