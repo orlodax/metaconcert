@@ -58,9 +58,15 @@ in what order, and with what inputs is DISCOVERED at run time.
   Either way, state which bias is uncontrolled. Never substitute yourself.
 - **No member claims `build` for this domain:** ask the human which existing
   agent in the repository to borrow. Do not implement it yourself.
-- **New member appears:** it is adopted automatically. Adding a role never
-  requires editing this skill. If a dropped-in member has no valid MEMBRANE
-  block, refuse to run it and say why.
+- **New member appears:** it is adopted automatically into the PLAN. Adding a
+  role never requires editing this skill. If a dropped-in member has no valid
+  MEMBRANE block, refuse to run it and say why.
+- **Dispatchability lag:** a member authored during the current session may
+  appear in discovery but not yet be dispatchable - registration can lag by one
+  turn. If a member file's mtime is inside this session, say so in the plan
+  rather than promising the phase is covered. If dispatch then fails, that is
+  the lag, not a missing member; retry on the next turn before concluding
+  anything.
 - **Unknown phase name in a MEMBRANE block:** report it, ask the human where it
   slots, do not guess.
 
