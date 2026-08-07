@@ -39,8 +39,11 @@ this design exists to avoid.
 
 ### On having a hunch
 
-The director asks once whether you suspect a cause. **"I don't know" is a
-complete answer** and it will not ask again.
+The director asks once whether you suspect a cause, and in the same breath for
+your own estimate of what the work will cost. **"I don't know" is a complete
+answer** to either and it will not ask again. The two are separate questions -
+a hunch is about *why*, an estimate is about *how much* - and neither substitutes
+for the other.
 
 - **You have a hunch** → strongest run. Your belief is quarantined and compared
   against an independently derived diagnosis. That comparison is the one thing
@@ -49,9 +52,11 @@ complete answer** and it will not ask again.
   runs against that instead. Weaker: if the prior analysis came from an LLM,
   agreement is partly shared lineage rather than corroboration, and the director
   will say so.
-- **Neither** → no divergence measurement this run, stated once and dropped. You
-  still get the map with its assumptions exposed, ranked falsifiable hypotheses,
-  blind-authored criteria, and adversarial review. That is most of the value.
+- **Neither** → no causal divergence measurement this run, stated once and
+  dropped. An estimate you did give is still compared against the forecast; that
+  comparison does not depend on having a hunch. You still get the map with its
+  assumptions exposed, ranked falsifiable hypotheses, blind-authored criteria,
+  and adversarial review. That is most of the value.
 
 Do not manufacture a hunch to feed the machine. A fabricated instinct produces a
 fabricated divergence, and the ledger becomes worse than empty.

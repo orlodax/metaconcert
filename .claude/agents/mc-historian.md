@@ -10,7 +10,7 @@ model: haiku
     phase:     hypothesise
     domain:    code
     receives:  task-signature, repo-history
-    never:     quarantine, hypothesis-ranking
+    never:     quarantine, hypothesis-ranking, human-estimate
     produces:  forecast
     model:     haiku
 

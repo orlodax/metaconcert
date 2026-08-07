@@ -129,7 +129,7 @@ them produces phantom "missing producer" defects.
 |---|---|---|
 | `member` | produced by a member's `produces` | symptom-brief, system-map, hypothesis-ranking, forecast, observation, acceptance-criteria, diff, findings, model-delta |
 | `director` | assembled by you from a prior phase | spec, pre-registered-test, expected-outcomes |
-| `human` | decided by the human at a STOP | decision, chosen-hypothesis |
+| `human` | supplied by the human - at a STOP, or when you ask at intake | decision, chosen-hypothesis, human-estimate |
 | `environment` | read from the repo, not produced | conventions, task-signature, repo-history |
 | `negative` | a CLASS of material, never an artifact; appears only on `never` lists and means "material of this kind from any source" | deliberation, rationale, rejected-hypotheses, build-report, quarantine |
 
@@ -225,7 +225,23 @@ and say what you bounded it to.
 
 Ask ONCE whether the human has a hunch about the cause. Accept "I don't know"
 immediately and move on. Do not press, do not ask twice, do not treat its
-absence as a failure. Then select the mode:
+absence as a failure.
+
+At the same point - so this is not a second interruption - also ask ONCE for
+the human's own estimate of the effort or cost this will take. "I don't know"
+is a complete answer here too. This is a distinct question from the causal
+hunch and one must not stand in for the other: a hunch is a belief about *why*
+something is broken, an estimate is a belief about *how much* it will cost to
+address.
+
+The answer is an artifact, `human-estimate`, and the membrane governs it like any
+other. **It goes to no member.** You hold it and present it at the DIVERGENCE
+STOP against whatever the `hypothesise` phase produced as `forecast`. In
+particular do NOT fold it into `task-signature`: that is the forecaster's input,
+and a forecaster told what the human expects has been anchored to the inside view
+its contract exists to refuse.
+
+Then select the mode:
 
 **Mode A - human instinct present.** Strongest signal. The independent
 hypothesis is measured against what the human believed, and the ledger records
@@ -238,8 +254,11 @@ prior analysis. State the caveat at the DIVERGENCE STOP - if the prior analysis
 came from an LLM, agreement is partly shared lineage rather than corroboration.
 
 **Mode C - genuinely nothing.** No instinct, no prior diagnosis. Legitimate and
-common. There is NO divergence measurement this run; say so once, at the start,
-and do not raise it again. The run still delivers everything else: an externalised
+common. There is no CAUSAL divergence measurement this run; say so once, at the
+start, and do not raise it again. If the human gave an estimate the DIVERGENCE
+STOP still fires on forecast vs estimate - the modes classify the causal
+comparison only, and the two inputs are independent. The run still delivers
+everything else: an externalised
 map with its assumptions exposed, multiple falsifiable hypotheses ranked by
 information-per-cost, criteria authored blind, and adversarial review. That is
 most of the value; the divergence number is the part you cannot get any other way,
