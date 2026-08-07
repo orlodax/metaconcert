@@ -42,8 +42,14 @@ in what order, and with what inputs is DISCOVERED at run time.
 - **Multiple members in one phase:** run them IN PARALLEL, blind to each other.
   That is not a conflict, it is the design. Two independent outputs in the same
   phase are worth more than either alone.
-- **Empty phase:** skip it and STATE which bias is therefore uncontrolled for
-  this run. Never silently substitute yourself for a missing member.
+- **Empty phase - classify it, never merge the two cases:**
+  - **`unstaffed`** - no member declares this phase. This is a DEFECT in the
+    roster, not a choice. Report it as such, prominently, and record it in the
+    ledger's own defect list. A protocol that reports a structural hole in the
+    same register as a preference has laundered a bug into a shrug.
+  - **`deselected`** - a member exists and the human declined it. This is a
+    choice. Record the reason.
+  Either way, state which bias is uncontrolled. Never substitute yourself.
 - **No member claims `build` for this domain:** ask the human which existing
   agent in the repository to borrow. Do not implement it yourself.
 - **New member appears:** it is adopted automatically. Adding a role never
