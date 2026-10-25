@@ -116,6 +116,8 @@ resolved to, and waits before spending anything.
 
 ## Read next
 
+- `manual.html` — every step of a run, from the clean session to the ledger
+  entry, with diagrams; open it in a browser
 - `CHEATSHEET.md` — which member controls for which failure mode, and the honest
   limits of that mapping
 - `INTEGRATION.md` — how to run it, when not to, and how to borrow the agents a
