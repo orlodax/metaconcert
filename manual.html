@@ -1,0 +1,908 @@
+<meta charset="utf-8">
+<title>Metaconcert Field Manual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* How-to manual: numbered steps down a narrow column, full-bleed figures.
+   Zero radius, corner brackets, mono readouts — after the deck in newsletter 005. */
+:root{
+  --bg:#11151B; --panel:#1A2029; --panel-2:#232B36;
+  --fg:#F5E9D0; --muted:#93A4B2;
+  --acc:#E9B65C; --ok:#63B295; --warn:#FF7A68;
+  --line:rgba(147,164,178,.22); --line-hi:rgba(233,182,92,.45);
+  --fill:rgba(147,164,178,.10); --fill-acc:rgba(233,182,92,.13);
+  --fill-warn:rgba(255,83,64,.12); --fill-ok:rgba(99,178,149,.14);
+  color-scheme:dark;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --col:68ch;
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --bg:#F1ECE2; --panel:#FBF8F1; --panel-2:#E7E0D1;
+    --fg:#171B21; --muted:#5B6671;
+    --acc:#8A5D0C; --ok:#2C6A53; --warn:#B82D1C;
+    --line:rgba(23,27,33,.18); --line-hi:rgba(138,93,12,.5);
+    --fill:rgba(23,27,33,.055); --fill-acc:rgba(138,93,12,.10);
+    --fill-warn:rgba(184,45,28,.09); --fill-ok:rgba(44,106,83,.11);
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F1ECE2; --panel:#FBF8F1; --panel-2:#E7E0D1;
+  --fg:#171B21; --muted:#5B6671;
+  --acc:#8A5D0C; --ok:#2C6A53; --warn:#B82D1C;
+  --line:rgba(23,27,33,.18); --line-hi:rgba(138,93,12,.5);
+  --fill:rgba(23,27,33,.055); --fill-acc:rgba(138,93,12,.10);
+  --fill-warn:rgba(184,45,28,.09); --fill-ok:rgba(44,106,83,.11);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-size:clamp(30px,6.2vw,52px);font-weight:800;font-stretch:88%;letter-spacing:-.015em;line-height:1.03}
+h2{font-size:clamp(21px,3.3vw,28px);font-weight:700;font-stretch:90%;line-height:1.14}
+h3{font-size:15.5px;font-weight:700;letter-spacing:.01em}
+p,li{max-width:var(--col)}
+a{color:var(--acc);text-underline-offset:3px}
+code,kbd{font-family:var(--mono);font-size:.88em}
+.lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+.mast{border-bottom:1px solid var(--line);padding-block:clamp(26px,6vw,54px) 22px}
+.mast .eyebrow{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;margin-bottom:18px}
+.mast h1 span{color:var(--acc)}
+.lede{font-size:clamp(17px,2.3vw,20px);line-height:1.5;margin:18px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;max-width:none}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.06em;border:1px solid var(--line);padding:4px 8px;color:var(--muted);background:var(--panel)}
+.chip.hot{border-color:var(--line-hi);color:var(--acc)}
+.chip.bad{border-color:var(--warn);color:var(--warn)}
+.chip.good{border-color:var(--ok);color:var(--ok)}
+
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.toc ol{list-style:none;margin:0 auto;padding-block:10px;display:flex;gap:17px;overflow-x:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));max-width:1080px;scrollbar-width:thin;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 30px),transparent)}
+nav.toc li{max-width:none;flex:0 0 auto}
+nav.toc a{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--acc)}
+
+section{padding-block:clamp(32px,5.4vw,56px);border-bottom:1px solid var(--line)}
+.shead{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;margin-bottom:6px}
+.step{font-family:var(--mono);font-size:12px;color:var(--acc);letter-spacing:.1em;white-space:nowrap}
+.sub{color:var(--muted);margin:10px 0 24px;font-size:15.5px}
+
+.panel{position:relative;background:var(--panel);border:1px solid var(--line);padding:clamp(15px,2.4vw,24px)}
+.panel.hi{border-color:var(--line-hi)}
+.panel::before,.panel::after{content:"";position:absolute;width:9px;height:9px;border:2px solid var(--acc)}
+.panel::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.panel::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.panel.plainp::before,.panel.plainp::after{display:none}
+.panel+.panel{margin-top:13px}
+.panel p,.panel li{max-width:none;font-size:14.5px}
+.panel h3+p{margin-top:9px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:13px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr));gap:13px}
+.grid2>*,.grid3>*{min-width:0}
+
+figure{margin:22px 0 0;background:var(--panel);border:1px solid var(--line);padding:clamp(14px,2.2vw,22px)}
+figure svg{display:block;max-width:100%;height:auto;color:var(--fg)}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:14px;padding-top:12px;border-top:1px solid var(--line);max-width:var(--col)}
+figcaption b{color:var(--fg);font-weight:600}
+svg text{fill:currentColor;font-family:var(--mono);font-size:12px}
+svg .t-s{font-size:10.5px}
+svg .t-l{font-size:14px;font-weight:700}
+svg .mut{fill:var(--muted)}
+svg .ac{fill:var(--acc)}
+svg .wn{fill:var(--warn)}
+svg .okc{fill:var(--ok)}
+svg .bx{fill:var(--fill);stroke:currentColor;stroke-width:1.1}
+svg .bx-a{fill:var(--fill-acc);stroke:var(--acc);stroke-width:1.4}
+svg .bx-w{fill:var(--fill-warn);stroke:var(--warn);stroke-width:1.2}
+svg .bx-o{fill:var(--fill-ok);stroke:var(--ok);stroke-width:1.2}
+svg .ed{stroke:currentColor;stroke-width:1.2;fill:none}
+svg .ed-a{stroke:var(--acc);stroke-width:1.5;fill:none}
+svg .ed-w{stroke:var(--warn);stroke-width:1.3;fill:none}
+svg .ed-d{stroke:currentColor;stroke-width:1.1;fill:none;stroke-dasharray:4 3;opacity:.75}
+svg .hair{stroke:currentColor;stroke-width:.8;opacity:.35}
+
+.cmd{font-family:var(--mono);font-size:13.5px;background:var(--panel-2);border:1px solid var(--line);border-left:2px solid var(--acc);padding:11px 14px;overflow-x:auto;white-space:pre}
+pre{font-family:var(--mono);font-size:12.5px;line-height:1.65;background:var(--panel-2);border:1px solid var(--line);padding:14px 16px;overflow-x:auto;margin:0}
+pre b{color:var(--acc);font-weight:500}
+pre i{color:var(--warn);font-style:normal}
+.note{border-left:2px solid var(--acc);padding:2px 0 2px 16px;color:var(--muted);font-size:14.5px;margin:18px 0 0}
+.note strong{color:var(--fg)}
+.note.bad{border-left-color:var(--warn)}
+ul.plain{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+ul.plain li{display:grid;grid-template-columns:1.6rem minmax(0,1fr);gap:10px;font-size:14.5px;max-width:none}
+ul.plain .m{font-family:var(--mono);color:var(--acc);font-size:12px;line-height:1.7}
+ul.plain .m.x{color:var(--warn)}
+ul.plain .m.v{color:var(--ok)}
+.tw{overflow-x:auto;border:1px solid var(--line);background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:540px;font-size:14px}
+th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td code{color:var(--acc)}
+td.k{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+footer{padding-block:32px 44px;color:var(--muted);font-size:13.5px}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media (max-width:560px){.cmd,pre{font-size:12px}}
+</style>
+
+<header class="mast wrap">
+  <div class="eyebrow">
+    <span class="lbl">How-to</span>
+    <span class="lbl" style="color:var(--acc)">8 members + 1 director</span>
+    <span class="lbl">MIT · orlodax/metaconcert</span>
+  </div>
+  <h1>Meta<span>concert</span><br>field manual</h1>
+  <p class="lede">Operating instructions for the human who runs it: what to do at each step, what each
+  phase hands you, and what the machine will refuse to do on your behalf.</p>
+  <div class="chips">
+    <span class="chip good">protocol mechanics verified</span>
+    <span class="chip">member → bias map: design intent</span>
+    <span class="chip bad">efficacy untested · n = 0</span>
+    <span class="chip">ledger mandatory</span>
+  </div>
+  <p class="note"><strong>One rule above the others.</strong> Artifacts cross the membrane, reasoning does
+  not. Everything here is machinery for that sentence.</p>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <ol>
+    <li><a href="#install">0 · Install</a></li>
+    <li><a href="#clean">1 · Clean session</a></li>
+    <li><a href="#invoke">2 · Invoke</a></li>
+    <li><a href="#answer">3 · Two questions</a></li>
+    <li><a href="#plan">4 · Approve the plan</a></li>
+    <li><a href="#run">5 · The run</a></li>
+    <li><a href="#stops">6 · Your decisions</a></li>
+    <li><a href="#read">7 · Read the output</a></li>
+    <li><a href="#trouble">8 · Troubleshooting</a></li>
+    <li><a href="#ledger">9 · The ledger</a></li>
+    <li><a href="#reach">What it cannot exclude</a></li>
+    <li><a href="#extend">Adding a member</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="install" class="wrap">
+  <div class="shead"><span class="step">STEP 0</span><h2>Install</h2></div>
+  <p class="sub">Copy two directories. Nothing else is touched.</p>
+  <pre>.claude/
+├── agents/
+│   ├── mc-observer.md       <b>intake</b>
+│   ├── mc-cartographer.md   <b>map</b>
+│   ├── mc-diagnostician.md  <b>hypothesise</b>
+│   ├── mc-historian.md      <b>hypothesise</b>
+│   ├── mc-falsify.md        <b>falsify</b>
+│   ├── mc-oracle.md         <b>specify</b>
+│   ├── mc-builder.md        <b>build</b>
+│   └── mc-adversary.md      <b>attack</b>
+└── skills/metaconcert/
+    └── SKILL.md             <b>the director</b></pre>
+  <div class="grid2" style="margin-top:13px">
+    <div class="panel plainp">
+      <h3>Project scope or user scope</h3>
+      <p>Either <code>&lt;repo&gt;/.claude/</code> or <code>~/.claude/</code>. The director globs both and
+      <strong>project wins on a name collision</strong>, so a repo can override one member without forking
+      the set.</p>
+    </div>
+    <div class="panel plainp">
+      <h3>It stays out of your way</h3>
+      <p>The <code>mc-</code> prefix and the “never select proactively” clause in every description keep
+      these out of normal routing. The skill is <code>invocation: user</code>, so it runs only when you
+      call it.</p>
+    </div>
+  </div>
+</section>
+
+<section id="clean" class="wrap">
+  <div class="shead"><span class="step">STEP 1</span><h2>Open a clean session</h2></div>
+  <p class="sub">The easiest thing to get wrong, and fatal when you do.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 290" role="img" aria-label="Two sessions compared. In a session where you already worked, your reasoning is in the context, the director inherits a view, and the quarantine comes back empty, so there is nothing to measure. After clear, the context holds only the brief, the director holds no view, and the quarantine holds your instinct, which is the measurement.">
+      <defs>
+        <marker id="m1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <text class="t-l wn" x="0" y="14">WRONG</text>
+      <text class="t-s mut" x="70" y="14">work for an hour, then invoke</text>
+      <rect class="bx-w" x="0" y="28" width="350" height="96"/>
+      <text class="t-s" x="12" y="48">main session context</text>
+      <rect class="bx" x="12" y="58" width="100" height="24"/><text class="t-s" x="21" y="74">your diagnosis</text>
+      <rect class="bx" x="120" y="58" width="114" height="24"/><text class="t-s" x="129" y="74">a plan you liked</text>
+      <rect class="bx" x="242" y="58" width="96" height="24"/><text class="t-s" x="251" y="74">write-ups</text>
+      <text class="t-s mut" x="12" y="104">the director inherits every one of them</text>
+      <line class="ed-w" x1="175" y1="124" x2="175" y2="152" marker-end="url(#m1a)"/>
+      <rect class="bx-w" x="60" y="152" width="230" height="40"/>
+      <text x="76" y="177">quarantine:</text><text class="wn" x="176" y="177">EMPTY</text>
+      <text class="t-s mut" x="60" y="214">Nothing was withheld, because you already</text>
+      <text class="t-s mut" x="60" y="230">talked yourself through the diagnosis.</text>
+      <text class="t-s wn" x="60" y="252">No divergence can be measured this run.</text>
+
+      <line class="hair" x1="380" y1="20" x2="380" y2="270"/>
+
+      <text class="t-l okc" x="410" y="14">RIGHT</text>
+      <text class="t-s mut" x="476" y="14">/clear, then invoke</text>
+      <rect class="bx-o" x="410" y="28" width="348" height="96"/>
+      <text class="t-s" x="422" y="48">main session context</text>
+      <rect class="bx" x="422" y="58" width="180" height="24"/><text class="t-s" x="431" y="74">the brief, as you typed it</text>
+      <text class="t-s mut" x="422" y="104">the director holds no view of its own</text>
+      <line class="ed-a" x1="585" y1="124" x2="585" y2="152" marker-end="url(#m1a)"/>
+      <rect class="bx-a" x="470" y="152" width="230" height="40"/>
+      <text x="486" y="177">quarantine:</text><text class="ac" x="586" y="177">HELD</text>
+      <text class="t-s mut" x="470" y="214">Your instinct is withheld from every member</text>
+      <text class="t-s mut" x="470" y="230">and produced at the divergence stop.</text>
+      <text class="t-s okc" x="470" y="252">That comparison is the measurement.</text>
+    </svg>
+    <figcaption><b>The quarantine is the instrument.</b> It only exists if your instinct is still unsaid
+    when the run starts. A session that has already reasoned about the problem cannot produce one, and a
+    run without one measures nothing — it is why <code>/clear</code> is a step and not a suggestion.</figcaption>
+  </figure>
+
+  <p class="note bad"><strong>Also wrong:</strong> briefing a coordinator agent first and letting it plan.
+  You have pre-committed every downstream member to a frame. And a subagent cannot run this at all —
+  triggers flow downward, a subagent has no slash-command interface, and an architect-as-director is the
+  failure mode the design exists to avoid.</p>
+</section>
+
+<section id="invoke" class="wrap">
+  <div class="shead"><span class="step">STEP 2</span><h2>Invoke</h2></div>
+  <p class="sub">No required format. Say it the way you would to a colleague.</p>
+  <div class="cmd">/metaconcert i keep getting a 500 on retry uploads, only under load,
+             and only since we moved to the new pool</div>
+  <div class="cmd" style="margin-top:9px">/metaconcert work on issues/backend-defects.md</div>
+  <div class="cmd" style="margin-top:9px">/metaconcert item 42 of issues/backend-defects.md</div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="panel plainp">
+      <h3>What the director does before spending anything</h3>
+      <ul class="plain" style="margin-top:10px">
+        <li><span class="m">1</span><span>Resolves the reference: free prose <em>is</em> the brief; a path gets read; an ordinal gets resolved to a best candidate.</span></li>
+        <li><span class="m">2</span><span><strong>Echoes the referent back</strong> in one line — the entry’s own first line — and waits.</span></li>
+        <li><span class="m">3</span><span>Never runs a full roster against a guess. If nothing resolves it asks once, plainly, and stops.</span></li>
+      </ul>
+    </div>
+    <div class="panel plainp">
+      <h3>Watch for this</h3>
+      <p>Ordinals are ambiguous: the 42nd checkbox, the 42nd numbered entry, and the entry <em>labelled</em>
+      42 are often three different things. Read the echo before you confirm.</p>
+      <p>A path <em>plus</em> prose: the file is the source, and your prose is your own framing — it goes
+      straight to quarantine class A.</p>
+    </div>
+  </div>
+</section>
+
+<section id="answer" class="wrap">
+  <div class="shead"><span class="step">STEP 3</span><h2>Answer the two questions</h2></div>
+  <p class="sub">Asked once, together, so it is not two interruptions. Both answers go to no member.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 300" role="img" aria-label="Decision tree. If you have a hunch about the cause, the run is Mode A and your instinct is the comparison. If not, but the source document already carries a diagnosis, it is Mode B, compared against that prior analysis with a shared-lineage caveat. If neither, it is Mode C and no causal comparison is made, though an estimate you gave is still compared against the forecast.">
+      <defs>
+        <marker id="m2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <rect class="bx-a" x="0" y="22" width="206" height="54"/>
+      <text x="14" y="44">“Do you suspect</text><text x="14" y="62">a cause?”</text>
+
+      <path class="ed" d="M206,40 L250,40 L250,30 L286,30" marker-end="url(#m2a)"/>
+      <text class="t-s ac" x="214" y="26">yes</text>
+      <rect class="bx-o" x="286" y="8" width="90" height="44"/>
+      <text class="t-l okc" x="320" y="36">A</text>
+      <text class="t-s" x="392" y="24">Strongest run.</text>
+      <text class="t-s mut" x="392" y="40">Your instinct is the comparison at the</text>
+      <text class="t-s mut" x="392" y="54">divergence stop.</text>
+
+      <path class="ed" d="M206,58 L250,58 L250,112 L286,112" marker-end="url(#m2a)"/>
+      <text class="t-s mut" x="214" y="76">no</text>
+      <rect class="bx" x="286" y="90" width="214" height="44"/>
+      <text class="t-s" x="298" y="108">does the source already</text><text class="t-s" x="298" y="124">carry a diagnosis?</text>
+
+      <path class="ed" d="M500,100 L540,100 L540,88 L576,88" marker-end="url(#m2a)"/>
+      <text class="t-s ac" x="506" y="86">yes</text>
+      <rect class="bx-o" x="576" y="66" width="90" height="44"/>
+      <text class="t-l okc" x="610" y="94">B</text>
+      <text class="t-s mut" x="672" y="84">weaker</text>
+      <text class="t-s mut" x="576" y="128">shared lineage —</text>
+      <text class="t-s mut" x="576" y="142">agreement may be</text>
+      <text class="t-s mut" x="576" y="156">ancestry, not proof</text>
+
+      <path class="ed" d="M500,124 L540,124 L540,186 L576,186" marker-end="url(#m2a)"/>
+      <text class="t-s mut" x="506" y="142">no</text>
+      <rect class="bx" x="576" y="164" width="90" height="44"/>
+      <text class="t-l mut" x="610" y="192">C</text>
+      <text class="t-s mut" x="576" y="226">legitimate and common</text>
+
+      <line class="hair" x1="0" y1="252" x2="760" y2="252"/>
+      <text class="t-s" x="0" y="274">Mode C still delivers: the map with its assumptions exposed · ranked falsifiable hypotheses ·</text>
+      <text class="t-s" x="0" y="290">criteria authored blind · adversarial review · forecast vs your estimate. Only the causal comparison is absent.</text>
+    </svg>
+    <figcaption><b>“I don’t know” is a complete answer</b> to either question, and the director will not ask
+    again. Do not manufacture a hunch to feed the machine: a fabricated instinct produces a fabricated
+    divergence, and the ledger becomes worse than empty.</figcaption>
+  </figure>
+
+  <p class="note">The second question — your own estimate of the cost — is a <em>separate</em> artifact,
+  <code>human-estimate</code>, and it is <strong>never folded into <code>task-signature</code></strong>.
+  A forecaster told what you expect has been anchored to the inside view its contract exists to refuse.</p>
+</section>
+
+<section id="plan" class="wrap">
+  <div class="shead"><span class="step">STEP 4</span><h2>Approve the plan</h2></div>
+  <p class="sub">Discovery runs first, always. You see the roster before anything is spent.</p>
+  <div class="grid2">
+    <div class="panel plainp">
+      <h3>What the plan tells you</h3>
+      <ul class="plain" style="margin-top:10px">
+        <li><span class="m">·</span><span>Members found, and which phase each claims</span></li>
+        <li><span class="m">·</span><span>Phases with <strong>no</strong> member, classified (below)</span></li>
+        <li><span class="m">·</span><span>Which existing project agents it proposes to borrow</span></li>
+        <li><span class="m">·</span><span>For two members in one phase: whether they answer the <em>same</em> question (divergence is signal) or <em>different</em> ones merely run in parallel (outputs are not comparable and must not be presented as corroborating)</span></li>
+      </ul>
+    </div>
+    <div class="panel plainp">
+      <h3>An empty phase is one of two things</h3>
+      <ul class="plain" style="margin-top:10px">
+        <li><span class="m x">!</span><span><code>unstaffed</code> — no member declares it. A <strong>defect in the roster</strong>, reported prominently and recorded in the ledger. Never a shrug.</span></li>
+        <li><span class="m v">·</span><span><code>deselected</code> — a member exists and you declined it. A choice, recorded with your reason.</span></li>
+      </ul>
+      <p style="margin-top:12px">Either way the director states which bias is now uncontrolled, and never
+      substitutes itself. <code>ledger</code> is exempt — it is director-owned and no member may claim it.</p>
+    </div>
+  </div>
+  <p class="note">A member you authored in <em>this</em> session may appear in discovery but not yet be
+  dispatchable — registration can lag by one turn. The plan says so rather than promising the phase is
+  covered; if dispatch fails, retry on the next turn before concluding anything.</p>
+</section>
+
+<section id="run" class="wrap">
+  <div class="shead"><span class="step">STEP 5</span><h2>The run</h2></div>
+  <p class="sub">Nine phases in a fixed order, and three points where it stops and asks you.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 742" role="img" aria-label="The run, top to bottom. Intake produces a symptom brief and holds the quarantine. Map produces a system map. Hypothesise produces a hypothesis ranking and a forecast. Then the divergence stop, where you choose. Falsify produces a raw observation. Specify produces acceptance criteria. Then the open questions stop. Build produces a diff and a held model delta. Attack produces findings. Then the reconcile stop. Finally the director writes the ledger entry. Dashed artifacts are held by the director and reach no member.">
+      <defs>
+        <marker id="m3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+
+      <rect class="bx" x="0" y="0" width="236" height="46"/>
+      <text x="14" y="22">intake</text><text class="t-s mut" x="14" y="38">mc-observer</text>
+      <rect class="bx" x="286" y="4" width="130" height="18"/><text class="t-s" x="294" y="17">symptom-brief</text>
+      <rect class="bx" x="286" y="26" width="104" height="18" stroke-dasharray="4 3"/><text class="t-s mut" x="294" y="39">quarantine</text>
+      <text class="t-s mut" x="402" y="39">held</text>
+      <line class="ed" x1="118" y1="46" x2="118" y2="66" marker-end="url(#m3a)"/>
+
+      <rect class="bx" x="0" y="66" width="236" height="46"/>
+      <text x="14" y="88">map</text><text class="t-s mut" x="14" y="104">mc-cartographer</text>
+      <rect class="bx" x="286" y="80" width="112" height="18"/><text class="t-s" x="294" y="93">system-map</text>
+      <line class="ed" x1="118" y1="112" x2="118" y2="132" marker-end="url(#m3a)"/>
+
+      <rect class="bx" x="0" y="132" width="236" height="46"/>
+      <text x="14" y="154">hypothesise</text><text class="t-s mut" x="14" y="170">diagnostician ‖ historian</text>
+      <rect class="bx" x="286" y="136" width="146" height="18"/><text class="t-s" x="294" y="149">hypothesis-ranking</text>
+      <rect class="bx" x="286" y="158" width="78" height="18"/><text class="t-s" x="294" y="171">forecast</text>
+      <text class="t-s mut" x="444" y="149">blind to each other</text>
+      <line class="ed-a" x1="118" y1="178" x2="118" y2="198" marker-end="url(#m3a)"/>
+
+      <rect class="bx-a" x="0" y="198" width="620" height="42"/>
+      <text class="ac" x="14" y="217">◆ DIVERGENCE STOP</text>
+      <text class="t-s" x="14" y="233">you choose a hypothesis · the director declines to</text>
+      <text class="t-s mut" x="636" y="224">you</text>
+      <line class="ed-a" x1="118" y1="240" x2="118" y2="260" marker-end="url(#m3a)"/>
+
+      <rect class="bx" x="0" y="260" width="236" height="46"/>
+      <text x="14" y="282">falsify</text><text class="t-s mut" x="14" y="298">mc-falsify</text>
+      <rect class="bx" x="286" y="274" width="98" height="18"/><text class="t-s" x="294" y="287">observation</text>
+      <text class="t-s ac" x="400" y="287">the only evidence in the protocol</text>
+      <line class="ed" x1="118" y1="306" x2="118" y2="326" marker-end="url(#m3a)"/>
+
+      <rect class="bx" x="0" y="326" width="236" height="46"/>
+      <text x="14" y="348">specify</text><text class="t-s mut" x="14" y="364">mc-oracle</text>
+      <rect class="bx" x="286" y="340" width="150" height="18"/><text class="t-s" x="294" y="353">acceptance-criteria</text>
+      <line class="ed-a" x1="118" y1="372" x2="118" y2="392" marker-end="url(#m3a)"/>
+
+      <rect class="bx-a" x="0" y="392" width="620" height="42"/>
+      <text class="ac" x="14" y="411">◆ OPEN QUESTIONS STOP</text>
+      <text class="t-s" x="14" y="427">you resolve the spec ambiguities · before anything is built</text>
+      <text class="t-s mut" x="636" y="418">you</text>
+      <line class="ed-a" x1="118" y1="434" x2="118" y2="454" marker-end="url(#m3a)"/>
+
+      <rect class="bx" x="0" y="454" width="236" height="46"/>
+      <text x="14" y="476">build</text><text class="t-s mut" x="14" y="492">mc-builder</text>
+      <rect class="bx" x="286" y="458" width="54" height="18"/><text class="t-s" x="294" y="471">diff</text>
+      <rect class="bx" x="286" y="480" width="104" height="18" stroke-dasharray="4 3"/><text class="t-s mut" x="294" y="493">model-delta</text>
+      <text class="t-s mut" x="402" y="493">held</text>
+      <line class="ed" x1="118" y1="500" x2="118" y2="520" marker-end="url(#m3a)"/>
+
+      <rect class="bx" x="0" y="520" width="236" height="46"/>
+      <text x="14" y="542">attack</text><text class="t-s mut" x="14" y="558">mc-adversary</text>
+      <rect class="bx" x="286" y="534" width="76" height="18"/><text class="t-s" x="294" y="547">findings</text>
+      <text class="t-s mut" x="378" y="547">different model family where available</text>
+      <line class="ed-a" x1="118" y1="566" x2="118" y2="586" marker-end="url(#m3a)"/>
+
+      <rect class="bx-a" x="0" y="586" width="620" height="42"/>
+      <text class="ac" x="14" y="605">◆ RECONCILE STOP</text>
+      <text class="t-s" x="14" y="621">criteria beside findings · the gaps are the product · plus the held model-delta</text>
+      <text class="t-s mut" x="636" y="612">you</text>
+      <line class="ed" x1="118" y1="628" x2="118" y2="648" marker-end="url(#m3a)"/>
+
+      <rect class="bx" x="0" y="648" width="236" height="46"/>
+      <text x="14" y="670">ledger</text><text class="t-s mut" x="14" y="686">director-owned</text>
+      <rect class="bx" x="286" y="662" width="98" height="18"/><text class="t-s" x="294" y="675">ledger entry</text>
+
+      <line class="hair" x1="0" y1="716" x2="760" y2="716"/>
+      <text class="t-s mut" x="0" y="736">Solid box = a member’s output, may cross a membrane · dashed = held by the director, reaches you and the ledger only</text>
+    </svg>
+    <figcaption><b>Read the three amber bars as the deliverable.</b> Everything between them is machinery
+    that exists to make those three comparisons honest. If the chosen hypothesis dies at
+    <code>falsify</code>, you go back to the divergence stop with the remaining ranking — the dead
+    hypothesis is never fed into a re-run of <code>hypothesise</code>.</figcaption>
+  </figure>
+</section>
+
+<section id="stops" class="wrap">
+  <div class="shead"><span class="step">STEP 6</span><h2>Your three decisions</h2></div>
+  <p class="sub">If a run ever hands you a tidy consensus, it has failed silently.</p>
+  <div class="grid3">
+    <div class="panel hi">
+      <h3 style="color:var(--acc)">◆ Divergence</h3>
+      <p><strong>You get:</strong> your quarantined instinct (or Mode B’s prior analysis) beside the
+      independent ranking; every <em>assumption I am supplying</em> from the map, verbatim; the forecast
+      against your own estimate.</p>
+      <p><strong>You do:</strong> pick a hypothesis.</p>
+      <p><strong>It refuses:</strong> to pick for you. Asked, it declines and restates the divergence.</p>
+      <p class="note bad" style="font-size:14px;margin-top:12px"><strong>Record no verdict here.</strong>
+      Who was right is decided at <code>falsify</code>, by observation. A verdict formed at this stop is
+      hindsight — the exact distortion the measurement routes around.</p>
+    </div>
+    <div class="panel">
+      <h3>◆ Open questions</h3>
+      <p><strong>You get:</strong> the spec ambiguities the oracle listed instead of resolving.</p>
+      <p><strong>You do:</strong> resolve them now, before anything is built.</p>
+      <p><strong>It refuses:</strong> to pick an interpretation quietly. That is how a spec gap becomes a
+      shipped bug.</p>
+    </div>
+    <div class="panel">
+      <h3>◆ Reconcile</h3>
+      <p><strong>You get:</strong> blind-authored criteria beside the adversary’s findings, and separately
+      the builder’s <code>model-delta</code>.</p>
+      <p><strong>You do:</strong> read the gaps — they are the finding.</p>
+      <p><strong>It refuses:</strong> to resolve them. This stop falls after <code>attack</code> on purpose:
+      the adversary must not see the builder’s account of its own work.</p>
+    </div>
+  </div>
+</section>
+
+<section id="read" class="wrap">
+  <div class="shead"><span class="step">STEP 7</span><h2>Read a member’s output</h2></div>
+  <p class="sub">Each member declares its own contract. Check the output against it — that is your job, not
+  the director’s.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 326" role="img" aria-label="Anatomy of a MEMBRANE block. Phase decides where the member runs in the order. Domain selects it for this run. The receives list is the entire prompt the director composes. The never list is what makes the member independent. Produces is the artifact name other members may consume. Model is the choice and its rationale.">
+      <defs>
+        <marker id="m4a" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M10,0 L0,5 L10,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <rect class="bx" x="0" y="0" width="330" height="190"/>
+      <text class="ac" x="14" y="24">## MEMBRANE</text>
+      <text class="mut" x="14" y="52">phase:</text><text x="110" y="52">attack</text>
+      <text class="mut" x="14" y="76">domain:</text><text x="110" y="76">code</text>
+      <text class="mut" x="14" y="100">receives:</text><text class="okc" x="110" y="100">diff, spec,</text>
+      <text class="okc" x="110" y="118">acceptance-criteria</text>
+      <text class="mut" x="14" y="142">never:</text><text class="wn" x="110" y="142">quarantine,</text>
+      <text class="wn" x="110" y="160">deliberation, rationale</text>
+      <text class="mut" x="14" y="184">produces:</text><text x="110" y="184">findings</text>
+
+      <path class="ed-d" d="M400,46 L344,52" marker-end="url(#m4a)"/>
+      <text class="t-s" x="406" y="42">where it runs in the fixed order.</text>
+      <text class="t-s mut" x="406" y="56">An unknown phase name is reported, never guessed.</text>
+
+      <path class="ed-d" d="M400,104 L344,106" marker-end="url(#m4a)"/>
+      <text class="t-s okc" x="406" y="94">THE WHOLE PROMPT.</text>
+      <text class="t-s" x="406" y="108">The director composes from this list and nothing</text>
+      <text class="t-s" x="406" y="122">else. What is not here was never asked to be ignored —</text>
+      <text class="t-s" x="406" y="136">it did not arrive.</text>
+
+      <path class="ed-d" d="M400,160 L344,152" marker-end="url(#m4a)"/>
+      <text class="t-s wn" x="406" y="166">WHERE THE INDEPENDENCE COMES FROM.</text>
+      <text class="t-s" x="406" y="180">A member that receives everything is just another</text>
+      <text class="t-s" x="406" y="194">opinion in the same frame.</text>
+
+      <line class="hair" x1="0" y1="222" x2="760" y2="222"/>
+      <text class="t-s" x="0" y="244">If material outside its list reaches a member, <tspan class="wn">it must say so.</tspan> A leaked membrane invalidates the run,</text>
+      <text class="t-s" x="0" y="260">and silent tolerance of it is worse than the leak. A dropped-in member with no valid block is refused, not run.</text>
+      <text class="t-s mut" x="0" y="288">Members holding Bash or Write also carry a CONTRACT PRECEDENCE rule, and their output must then carry a</text>
+      <text class="t-s mut" x="0" y="304">### CONTRACT CONFLICTS section — what reached them and what they did instead, or the explicit word “none”.</text>
+      <text class="t-s wn" x="0" y="322">A missing section is not “none”. It is a phase defect, and it is never filled in afterwards by re-dispatch.</text>
+    </svg>
+    <figcaption><b>Four checks per member.</b> Did it produce the artifact named in <code>produces</code>?
+    In the exact format its file specifies? Did it declare any leak? And where one was owed, is there a
+    <code>CONTRACT CONFLICTS</code> section at all?</figcaption>
+  </figure>
+
+  <div class="panel" style="margin-top:14px">
+    <h3>What the director is allowed to assemble — and what it is not</h3>
+    <div class="tw" style="margin-top:12px;border:0">
+      <table>
+        <thead><tr><th>It may</th><th>It may not</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Build <code>spec</code> by <strong>verbatim selection</strong> from the decision and the relevant sections of <code>system-map</code>, each section carrying a one-line provenance tag.</td>
+            <td>Write a substantive sentence with no source artifact. That is authorship, and it puts its own view into the one input the oracle must treat as given.</td>
+          </tr>
+          <tr>
+            <td>Derive <code>task-signature</code> from the <em>structural</em> content of <code>symptom-brief</code> — files touched, subsystems crossed, interface/migration/config changes, whether it spans repos.</td>
+            <td>Supply an answer the brief is silent on. It records <em>not stated</em> instead.</td>
+          </tr>
+          <tr>
+            <td>Split the chosen <code>hypothesis-ranking</code> entry by field, once — the one enumerated exception.</td>
+            <td>Summarise, rename or merge any artifact. Pass-through is verbatim.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:14px">The field split, in full: the <strong>statement and Predicts
+    line</strong> may be appended to the <code>decision</code>; <strong>Test and Outcome map</strong> go to
+    <code>falsify</code> only, relabelled under neutral tokens; <strong>Mechanism, Prior, Cost and the
+    ordering</strong> are the diagnostician’s reasoning — you see them at the stop, nothing downstream does.
+    Relabelling is the only edit permitted to a pre-registered test: not the command, not a path, not a
+    threshold, not a word of the outcome map.</p>
+  </div>
+</section>
+
+<section id="trouble" class="wrap">
+  <div class="shead"><span class="step">STEP 8</span><h2>Troubleshooting</h2></div>
+  <p class="sub">Four situations with a prescribed response. The first is the one that needs a picture.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 318" role="img" aria-label="Leak handling. A member places quarantine-derived material in a section meant to flow downstream. The quarantine rule wins over verbatim pass-through, so the section is not forwarded and not repaired. The director re-dispatches on the member's original receives material plus the defect stated in general terms, never quoting the leaked material back. One retry only. If the second attempt leaks again, the section is withheld and the phase is recorded as leaked with its attempt count.">
+      <defs>
+        <marker id="m5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <rect class="bx-w" x="0" y="0" width="250" height="48"/>
+      <text class="t-s" x="12" y="20">a member’s output section holds</text>
+      <text class="t-s wn" x="12" y="36">quarantine-derived material</text>
+
+      <line class="ed" x1="125" y1="48" x2="125" y2="72" marker-end="url(#m5a)"/>
+      <rect class="bx" x="0" y="72" width="250" height="66"/>
+      <text class="t-s mut" x="12" y="92">two absolute rules collide:</text>
+      <text class="t-s" x="12" y="110">pass artifacts verbatim</text>
+      <text class="t-s" x="12" y="128">the quarantine goes to no member</text>
+      <text class="t-l ac" x="268" y="112">→ the quarantine rule wins</text>
+
+      <line class="ed" x1="125" y1="138" x2="125" y2="162" marker-end="url(#m5a)"/>
+      <rect class="bx-a" x="0" y="162" width="250" height="66"/>
+      <text class="t-s wn" x="12" y="182">✕ do not forward the section</text>
+      <text class="t-s wn" x="12" y="200">✕ do not repair it</text>
+      <text class="t-s mut" x="12" y="220">redacting makes you the classifier</text>
+
+      <path class="ed-a" d="M250,195 L300,195" marker-end="url(#m5a)"/>
+      <rect class="bx" x="300" y="150" width="240" height="90"/>
+      <text class="t-s ac" x="312" y="170">RE-DISPATCH</text>
+      <text class="t-s" x="312" y="188">original receives material, as sent</text>
+      <text class="t-s" x="312" y="204">+ the defect in general terms:</text>
+      <text class="t-s mut" x="312" y="220">which section, which class — never</text>
+      <text class="t-s wn" x="312" y="234">the material itself</text>
+
+      <path class="ed-a" d="M540,195 L590,195" marker-end="url(#m5a)"/>
+      <text class="t-s mut" x="596" y="178">a fresh context has no</text>
+      <text class="t-s mut" x="596" y="192">memory of writing it, so</text>
+      <text class="t-s mut" x="596" y="206">quoting it back would be</text>
+      <text class="t-s wn" x="596" y="220">a first disclosure</text>
+
+      <line class="ed-w" x1="461" y1="240" x2="461" y2="266" marker-end="url(#m5a)"/>
+      <rect class="bx-w" x="226" y="266" width="470" height="42"/>
+      <text class="t-s wn" x="238" y="286">leaks again? ONE retry only — stop.</text>
+      <text class="t-s" x="238" y="302">withhold the section · record the phase “leaked” + attempt count</text>
+    </svg>
+    <figcaption><b>Do not dispatch a third time, and do not fix the output yourself.</b> Tell the human that
+    this phase’s classification is unreliable. A sharper standard supplied by the human is a new
+    instruction, not a retry, and the count resets — each pass is recorded either way.</figcaption>
+  </figure>
+
+  <div class="grid3" style="margin-top:14px">
+    <div class="panel plainp">
+      <h3>The pre-registered test won’t execute</h3>
+      <p>It may <strong>not</strong> be rewritten. Either this run keeps no falsify evidence —
+      <code>unresolved</code> in Modes A and B — or you authorise a re-dispatch to the
+      <code>hypothesise</code> member for a replacement, asked <em>without</em> disclosing that the
+      hypothesis was chosen: “author an executable replacement test for H2”, never “H2 is the one we are
+      going with”.</p>
+    </div>
+    <div class="panel plainp">
+      <h3>No member claims <code>falsify</code></h3>
+      <p>Do not skip it — that costs the protocol its only evidence. Report <code>unstaffed</code>, then
+      borrow an agent, or let the director run the command and report raw output with no interpretation.
+      Prefer the borrowed agent: a test the director runs is <strong>un-blinded by construction</strong>,
+      since it holds both the label mapping and the quarantine. Record it as un-blinded and discount it.</p>
+    </div>
+    <div class="panel plainp">
+      <h3>The session compacted mid-run</h3>
+      <p>Verbatim pass-through is silently broken and nothing downstream can detect it. Record the
+      compaction as a phase defect. The same applies to any summarising you notice: the prose summary is
+      precisely where the fluency illusion re-enters.</p>
+    </div>
+  </div>
+</section>
+
+<section id="ledger" class="wrap">
+  <div class="shead"><span class="step">STEP 9</span><h2>The ledger</h2></div>
+  <p class="sub">Appended to <code>.metaconcert/ledger.md</code>. Without it this is a ritual, not a method.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 372" role="img" aria-label="Decision tree for the ledger's verdict field. In Mode C the value is always no-comparison. Otherwise, if the falsify phase did not run the value is unresolved. If it ran and the compared claim and the independent ranking named the same cause, the value is agreed. If they diverged and an observation bears on the member's hypothesis, it is diverged-and-member-was-right; where the quarantined claim coincided with an independently generated hypothesis an observation can instead give diverged-and-human-was-right; if nothing observed licenses either, it is bare diverged.">
+      <defs>
+        <marker id="m6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <rect class="bx" x="0" y="14" width="150" height="40"/>
+      <text class="t-s" x="12" y="32">which mode</text><text class="t-s" x="12" y="48">was the run?</text>
+
+      <path class="ed" d="M150,26 L190,26 L190,16 L228,16" marker-end="url(#m6a)"/>
+      <text class="t-s mut" x="156" y="14">C</text>
+      <rect class="bx" x="228" y="0" width="186" height="30"/>
+      <text class="t-s mut" x="238" y="20">no-comparison</text>
+      <text class="t-s mut" x="428" y="20">the only value a Mode C run may record</text>
+
+      <path class="ed" d="M150,44 L190,44 L190,74 L228,74" marker-end="url(#m6a)"/>
+      <text class="t-s mut" x="156" y="62">A / B</text>
+      <rect class="bx" x="228" y="54" width="186" height="40"/>
+      <text class="t-s" x="238" y="72">did the falsify</text><text class="t-s" x="238" y="88">phase run at all?</text>
+
+      <path class="ed" d="M414,66 L452,66 L452,52 L490,52" marker-end="url(#m6a)"/>
+      <text class="t-s mut" x="420" y="50">no</text>
+      <rect class="bx" x="490" y="36" width="190" height="30"/>
+      <text class="t-s mut" x="500" y="56">unresolved</text>
+      <text class="t-s mut" x="490" y="84">not a lesser kind of result —</text>
+      <text class="t-s mut" x="490" y="98">there is simply no evidence</text>
+
+      <path class="ed-a" d="M321,94 L321,126" marker-end="url(#m6a)"/>
+      <text class="t-s ac" x="328" y="116">yes</text>
+      <rect class="bx-a" x="150" y="126" width="342" height="40"/>
+      <text class="t-s" x="162" y="144">did the compared claim and the independent</text>
+      <text class="t-s" x="162" y="160">ranking name the same cause?</text>
+
+      <path class="ed" d="M492,138 L530,138 L530,130 L568,130" marker-end="url(#m6a)"/>
+      <text class="t-s mut" x="498" y="128">same</text>
+      <rect class="bx-o" x="568" y="114" width="112" height="30"/>
+      <text class="t-s okc" x="578" y="134">agreed</text>
+
+      <path class="ed-w" d="M321,166 L321,198" marker-end="url(#m6a)"/>
+      <text class="t-s wn" x="328" y="188">diverged</text>
+      <rect class="bx" x="90" y="198" width="462" height="44"/>
+      <text class="t-s" x="102" y="218">does a falsify observation bear on that party’s hypothesis?</text>
+      <text class="t-s mut" x="102" y="234">adjudicable only where the claim coincides with a generated hypothesis</text>
+
+      <path class="ed" d="M552,210 L582,210 L582,192 L604,192" marker-end="url(#m6a)"/>
+      <rect class="bx-o" x="604" y="176" width="156" height="30"/>
+      <text class="t-s okc" x="612" y="196">…-member-was-right</text>
+      <path class="ed" d="M552,220 L582,220 L582,228 L604,228" marker-end="url(#m6a)"/>
+      <rect class="bx-o" x="604" y="212" width="156" height="30"/>
+      <text class="t-s okc" x="612" y="232">…-human-was-right</text>
+
+      <line class="ed-d" x1="321" y1="242" x2="321" y2="268" marker-end="url(#m6a)"/>
+      <rect class="bx" x="150" y="268" width="342" height="30"/>
+      <text class="t-s mut" x="162" y="288">nothing observed licenses either → bare “diverged”</text>
+
+      <line class="hair" x1="0" y1="326" x2="760" y2="326"/>
+      <text class="t-s" x="0" y="346">A verdict set that can record member wins but not human wins biases the statistic in the</text>
+      <text class="t-s" x="0" y="362">protocol’s favour — hence the two branches.</text>
+    </svg>
+    <figcaption><b>Every other field follows one rule:</b> a field with nothing to record says
+    <strong>none</strong>, never nothing. An absent field and an empty one read identically later and mean
+    opposite things.</figcaption>
+  </figure>
+
+  <div class="grid2" style="margin-top:14px">
+    <div class="panel plainp">
+      <h3>Also recorded, every run</h3>
+      <p>Date, domain, task, mode · members run · members deselected with your reason · wall-clock · per
+      member, the size of the prompt the director built · your estimate against the forecast and both
+      against the actual · map assumptions that proved load-bearing · specify-vs-attack gaps · findings by
+      severity · the builder’s <code>model-delta</code> · any defect found later.</p>
+      <p><strong>Phase defects:</strong> <code>unstaffed</code> phases · <code>leaked</code> phases with
+      attempt counts · members that owed a <code>CONTRACT CONFLICTS</code> section and supplied none ·
+      borrowed agents · un-blinded falsify observations · any mid-run compaction.</p>
+    </div>
+    <div class="panel plainp">
+      <h3>Do not log a membrane claim as confirmed</h3>
+      <p>A member stating it did not receive something is exactly the fluent, plausible, unfalsifiable claim
+      this protocol exists to distrust. Convergent self-reports from members that share an ambient layer and
+      carry identical instructions are <strong>one measurement taken N times</strong>.</p>
+      <p>No shipped member can read its own input-token count, and a borrowed agent’s grant may differ —
+      check rather than assume. The only mechanical check is the size of the prompt the director itself
+      constructed: a weak proxy, logged as such.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reach" class="wrap">
+  <div class="shead"><span class="step">LIMITS</span><h2>What the membrane cannot exclude</h2></div>
+  <p class="sub">Operationally relevant, so it is here and not in a footnote: three channels reach a member
+  that the director does not compose.</p>
+
+  <figure>
+    <svg viewBox="0 0 760 330" role="img" aria-label="A member's context drawn to scale. The prompt the director composes measured 257 tokens in run 001; the ambient layer of harness instructions, tool definitions and project files measured about 28,500 tokens — roughly one hundred and eleven times larger. Two further channels arrive from outside the director's reach: a harness-forwarded snapshot of parent session state, and whatever the member's own Read, Grep and Glob can reach anywhere in the working tree.">
+      <defs>
+        <marker id="m7a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <text class="t-s mut" x="0" y="14">ONE MEMBER’S CONTEXT, TO SCALE · run 001</text>
+
+      <rect class="bx" x="0" y="26" width="754" height="54"/>
+      <rect x="0" y="26" width="6.7" height="54" fill="var(--acc)" stroke="var(--acc)" stroke-width="1"/>
+      <text class="t-s mut" x="300" y="58">ambient layer · ~28,500 tokens · not suppressible, and should not be</text>
+
+      <path class="ed-a" d="M30,112 L10,86" marker-end="url(#m7a)"/>
+      <text class="t-s ac" x="36" y="108">the prompt the director composes · 257 tokens</text>
+      <text class="t-s mut" x="36" y="124">the whole of what exclusion is structural for</text>
+
+      <line class="hair" x1="0" y1="148" x2="754" y2="148"/>
+
+      <rect class="bx" x="252" y="186" width="250" height="56"/>
+      <text class="t-s" x="264" y="208">the member</text>
+      <text class="t-s mut" x="264" y="226">fresh conversational context</text>
+
+      <path class="ed-a" d="M377,160 L377,186" marker-end="url(#m7a)"/>
+      <text class="t-s ac" x="384" y="180">receives list</text>
+
+      <rect class="bx-w" x="0" y="276" width="230" height="46"/>
+      <text class="t-s wn" x="12" y="296">parent-session state</text>
+      <text class="t-s mut" x="12" y="312">stale gitStatus · run 002</text>
+      <path class="ed-w" d="M115,276 L115,252 L300,252 L300,242" marker-end="url(#m7a)"/>
+      <text class="t-s wn" x="124" y="266">outside receives, outside control</text>
+
+      <rect class="bx-w" x="524" y="276" width="230" height="46"/>
+      <text class="t-s wn" x="536" y="296">its own tool grants</text>
+      <text class="t-s mut" x="536" y="312">Read · Grep · Glob · the tree</text>
+      <path class="ed-w" d="M639,276 L639,252 L455,252 L455,242" marker-end="url(#m7a)"/>
+      <text class="t-s wn" x="462" y="266">one grep for an error string</text>
+    </svg>
+    <figcaption><b>The guarantee, exactly:</b> exclusion is structural for the material the director
+    composes and chooses to withhold; exclusion of everything else is not. Figures from
+    <code>.metaconcert/ledger.md</code>, runs 001–002 — a local record, gitignored and absent from the
+    repository’s commit history, therefore not independently checkable from the repo alone. That the
+    snapshot originated in the parent session rather than being harness-computed is inference, not
+    observation.</figcaption>
+  </figure>
+
+  <div class="tw" style="margin-top:14px">
+    <table>
+      <thead><tr><th>Ceiling</th><th>Lever</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1 · shared priors</td><td>Isolation decorrelates context, never training weights. <strong>Partial:</strong> run <code>attack</code> on a different model family.</td></tr>
+        <tr><td class="k">2 · shared ambient layer</td><td>Identical in every member. <strong>None.</strong></td></tr>
+        <tr><td class="k">3 · forwarded parent state</td><td>Can neither be suppressed nor read back to see what it carried. <strong>None.</strong></td></tr>
+        <tr><td class="k">4 · member tool grants</td><td>Gitignored is not unreadable, and removing the files was tried and defeated — the tree became unrepresentative and members correctly reported the absence as a defect. <strong>Between runs only:</strong> keep such material out of the tree.</td></tr>
+        <tr><td class="k">5 · a director that holds everything</td><td>Withholding is mechanical once decided; the deciding is discipline, not structure. <strong>None inside a run.</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">All five mean the same thing operationally: <strong>member agreement is worth less than it
+  looks, and weaker evidence than member divergence.</strong> Read the divergences first.</p>
+</section>
+
+<section id="extend" class="wrap">
+  <div class="shead"><span class="step">EXTEND</span><h2>Adding a member, borrowing an agent</h2></div>
+  <p class="sub">Drop a file in, it is adopted on the next run. <strong>Never edit the skill to add a
+  member.</strong></p>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3>The template</h3>
+      <pre>---
+name: mc-&lt;name&gt;
+description: &lt;one line&gt;. ONLY use when
+  explicitly invoked by the Metaconcert
+  workflow. <i>Never select proactively.</i>
+tools: Read, Grep, Glob
+model: sonnet
+---
+
+<b>## MEMBRANE</b>
+
+    phase:     &lt;one of the nine&gt;
+    domain:    code | any | &lt;yours&gt;
+    receives:  &lt;artifact names&gt;
+    never:     &lt;artifact names&gt;
+    produces:  &lt;artifact name&gt;
+    model:     &lt;why this model&gt;</pre>
+      <p class="note" style="margin-top:13px">Holding <code>Bash</code> or <code>Write</code> means adding
+      the <code>CONTRACT PRECEDENCE</code> block <em>and</em> listing
+      <code>### CONTRACT CONFLICTS</code> in the output format. A section demanded by the prose but missing
+      from the format is one the member may silently omit.</p>
+    </div>
+    <div class="panel">
+      <h3>Six rules for a member that earns its place</h3>
+      <ul class="plain" style="margin-top:10px">
+        <li><span class="m">1</span><span><strong>Name the bias.</strong> If you cannot say which failure mode it controls for, you built a helper, not a member.</span></li>
+        <li><span class="m">2</span><span><strong><code>never</code> is the whole point.</strong></span></li>
+        <li><span class="m">3</span><span><strong>Forbid the verdict.</strong> No “looks good”, no “seems correct” — enumerated evidence with citations.</span></li>
+        <li><span class="m">4</span><span><strong>Fix the output format exactly.</strong> Free-form prose is unauditable.</span></li>
+        <li><span class="m">5</span><span><strong>Minimum capability.</strong> A correctness property here, not just safety.</span></li>
+        <li><span class="m">6</span><span><strong>Two members in one phase</strong> run parallel and blind. That is how a second opinion is obtained.</span></li>
+      </ul>
+      <p class="note" style="margin-top:13px">Domain is a free string. A new domain needs at minimum a
+      <code>map</code> member and an <code>attack</code> member — those two carry most of the load. Give
+      every new artifact name one of the six kinds, and every <code>receives</code> name either a producer
+      or a kind that explains its absence.</p>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:13px">
+    <h3>Borrowing an agent the repo already has</h3>
+    <p>No modification needed — the membrane is controlled by what the director puts in front of it, not by
+    the agent’s own definition. Prefix its prompt:</p>
+    <pre style="margin-top:12px">Operating as a Metaconcert member for this invocation.
+Use only the material below. Do not request additional context.
+Do not spawn subagents. Do not coordinate other agents.
+Return only the artifact named in `produces`.
+---
+&lt;material from the receiving member's receives list, verbatim&gt;</pre>
+    <ul class="plain" style="margin-top:13px">
+      <li><span class="m v">ok</span><span><strong>Worker-shaped</strong> agents — writers, implementers. Safe via call-site constraint.</span></li>
+      <li><span class="m x">!</span><span><strong>Coordinator-shaped</strong> agents — architects, leads. The information membrane holds; <strong>role drift does not</strong>, because their own system prompt still tells them to coordinate. Supply-only, watch for drift, and if it recurs build a thin <code>mc-</code> member. A real limitation, not a caveat.</span></li>
+      <li><span class="m x">✕</span><span>Never borrow an agent that will spawn its own subagents inside a phase: uncontrolled context flow re-enters and the run is void.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="shead"><span class="step">BEFORE YOU START</span><h2>When not to run it</h2></div>
+  <p class="sub">Almost always.</p>
+  <div class="grid2">
+    <div class="panel hi">
+      <h3 style="color:var(--acc)">It is git bisect for reasoning</h3>
+      <p>It costs many multiples of a normal session in tokens and in attention. It does not replace
+      architect / builder / tester — that pattern optimises for information flowing <em>freely</em>
+      downward, which is correct, and which this deliberately breaks.</p>
+      <p><strong>Reach for it</strong> when the cheap loop has already failed twice, or when a silent error
+      would be expensive. Architectural decisions and drafts failing for reasons you cannot name are the
+      weaker case: with no causal hypothesis to falsify you pay in full for the map, the blind criteria and
+      the adversarial review.</p>
+      <p class="note bad" style="margin-top:12px">Run it as your default and you will hate it inside a
+      week, abandon it, and lose the data. <strong>That is the realistic failure mode</strong> — not that it
+      does not work.</p>
+    </div>
+    <div class="panel">
+      <h3>Declared limits</h3>
+      <ul class="plain" style="margin-top:10px">
+        <li><span class="m">·</span><span>The member/bias mapping is <strong>design intent, not measurement</strong>. Biases do not partition cleanly.</span></li>
+        <li><span class="m">·</span><span><strong>Invocation is selected on failure.</strong> Every run is drawn from problems pre-selected for your instinct having been wrong, which inflates both the divergence rate and the member-win rate. A control arm corrects only partially.</span></li>
+        <li><span class="m">·</span><span><strong>No efficacy data exists.</strong> Until the ledger has thirty entries with a control arm, this is a hypothesis with good ergonomics.</span></li>
+      </ul>
+      <p style="margin-top:14px">Partial runs are legitimate: state which phases were skipped and therefore
+      which biases are uncontrolled. An honest partial beats a padded full run.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p><span class="lbl">Source</span><br>
+  Condensed from <code>SKILL.md</code>, <code>CHEATSHEET.md</code>, <code>INTEGRATION.md</code> and
+  <code>MEMBER-TEMPLATE.md</code> in <a href="https://github.com/orlodax/metaconcert">orlodax/metaconcert</a>,
+  with the protocol’s own retraction of run 001 kept intact. Where this page and the repository disagree,
+  the repository is right and this page should be fixed.</p>
+  <p style="margin-top:14px">The name is Julian May’s: independently operant minds fused under a director.
+  In those books the coordinator is the failure point — a corrupt director turns the whole apparatus into
+  an amplifier for one mind’s intent. Hence a director that enforces protocol and is forbidden from having
+  a view.</p>
+</footer>
